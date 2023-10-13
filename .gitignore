@@ -1,0 +1,22 @@
+#An Xcode project can generate a lot of files that are specific to the development environment, 
+#and are not necessary to include in version control
+
+
+### macOS ###
+# General
+.DS_Store
+.AppleDouble
+.LSOverride
+
+
+## Other
+*.moved-aside
+*.xccheckout
+*.xcuserstate
+
+### Xcode Patch ###
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+!*.xcodeproj/xcshareddata/
+!*.xcworkspace/contents.xcworkspacedata
+**/xcshareddata/WorkspaceSettings.xcsettings
