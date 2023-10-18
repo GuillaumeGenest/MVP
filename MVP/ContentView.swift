@@ -8,14 +8,41 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @StateObject var viewModel = ViewModel()
+    @State var ScanTicket : Bool = false
+
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        NavigationStack{
+            VStack {
+                VStack{
+                    Text("Liste de mes tickets!")
+                    
+                }
+                if viewModel.tickets.isEmpty {
+                    Text("Il y a aucun ticket")
+                    Spacer()
+                } else {
+                    ScrollView {
+                        ForEach(viewModel.tickets){content in
+                            TicketCell(ticket: content)
+                        }
+                    }.refreshable {
+                        Task{
+                            await viewModel.fetchData()
+                        }
+                    }
+                }
+            }.task{
+                await viewModel.fetchData()
+            }
+            .overlay( NfcButtonView(action: {ScanTicket.toggle()}).padding(.all,35),alignment: .bottomTrailing)
+            .navigationDestination(isPresented: $ScanTicket) {
+                    ScanNFCView(vm: viewModel)
+                }
+                .navigationTitle("MVP")
         }
-        .padding()
     }
 }
 
