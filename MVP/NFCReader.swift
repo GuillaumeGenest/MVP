@@ -27,13 +27,16 @@ class NFCReader: NSObject, ObservableObject, NFCNDEFReaderSessionDelegate {
     
     
     func readerSession(_ session: NFCNDEFReaderSession, didDetectNDEFs messages: [NFCNDEFMessage]) {
-           for message in messages {
-               for record in message.records {
-                   if let payload = String(data: record.payload, encoding: .utf8) {
-                       self.nfcData = payload
-                   }
-               }
-           }
-       }
-    
+        guard
+            let ndefMessage = messages.first,
+            let record = ndefMessage.records.first,
+            (record.typeNameFormat == .absoluteURI || record.typeNameFormat == .nfcWellKnown),
+            let payloadText = String(data: record.payload, encoding: .utf8)
+        else {
+            return 
+        }
+        self.nfcData = payloadText
+        self.NFCSession?.invalidate()
+
+    }
 }
