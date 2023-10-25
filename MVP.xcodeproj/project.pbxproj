@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		0679FBAF2AE6BD380001D5A8 /* QRcodeScan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0679FBAE2AE6BD380001D5A8 /* QRcodeScan.swift */; };
 		067D884A2AE2B7DC009A1025 /* ScanQRcodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 067D88492AE2B7DC009A1025 /* ScanQRcodeView.swift */; };
+		067F880D2AE93A2600965A0B /* CommunicationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 067F880C2AE93A2600965A0B /* CommunicationProtocol.swift */; };
+		067F88112AE954FC00965A0B /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 067F88102AE954FC00965A0B /* FirebaseAuth */; };
 		0683D2262ADFE25100865382 /* ScanNFCView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0683D2252ADFE25100865382 /* ScanNFCView.swift */; };
 		0683D2282ADFE29600865382 /* NFCReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0683D2272ADFE29600865382 /* NFCReader.swift */; };
 		0683D22A2ADFE32300865382 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0683D2292ADFE32200865382 /* GoogleService-Info.plist */; };
@@ -57,6 +59,7 @@
 /* Begin PBXFileReference section */
 		0679FBAE2AE6BD380001D5A8 /* QRcodeScan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRcodeScan.swift; sourceTree = "<group>"; };
 		067D88492AE2B7DC009A1025 /* ScanQRcodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanQRcodeView.swift; sourceTree = "<group>"; };
+		067F880C2AE93A2600965A0B /* CommunicationProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunicationProtocol.swift; sourceTree = "<group>"; };
 		0683D2252ADFE25100865382 /* ScanNFCView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanNFCView.swift; sourceTree = "<group>"; };
 		0683D2272ADFE29600865382 /* NFCReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFCReader.swift; sourceTree = "<group>"; };
 		0683D2292ADFE32200865382 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -94,6 +97,7 @@
 				0683D2452ADFEA3B00865382 /* FirebaseFirestore in Frameworks */,
 				0683D2412ADFEA3A00865382 /* FirebaseDatabase in Frameworks */,
 				0683D23F2ADFEA3A00865382 /* FirebaseCrashlytics in Frameworks */,
+				067F88112AE954FC00965A0B /* FirebaseAuth in Frameworks */,
 				0683D2492ADFEA3C00865382 /* FirebaseStorage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -115,11 +119,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		067F880E2AE9524C00965A0B /* Authentification */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Authentification;
+			sourceTree = "<group>";
+		};
+		067F880F2AE954FC00965A0B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		068214102AE2CB4800A3123B /* Service */ = {
 			isa = PBXGroup;
 			children = (
 				0683D2272ADFE29600865382 /* NFCReader.swift */,
 				0679FBAE2AE6BD380001D5A8 /* QRcodeScan.swift */,
+				067F880C2AE93A2600965A0B /* CommunicationProtocol.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -154,6 +173,7 @@
 		0683D2242ADFE22F00865382 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				067F880E2AE9524C00965A0B /* Authentification */,
 				0683D2252ADFE25100865382 /* ScanNFCView.swift */,
 				0683D22B2ADFE3E800865382 /* PDFKitView.swift */,
 				0683D2372ADFE66A00865382 /* TicketCell.swift */,
@@ -170,6 +190,7 @@
 				068749502AD9399E00ACD45E /* MVPTests */,
 				0687495A2AD9399E00ACD45E /* MVPUITests */,
 				0687493D2AD9399800ACD45E /* Products */,
+				067F880F2AE954FC00965A0B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -251,6 +272,7 @@
 				0683D2442ADFEA3B00865382 /* FirebaseFirestore */,
 				0683D2462ADFEA3B00865382 /* FirebaseFirestoreSwift */,
 				0683D2482ADFEA3C00865382 /* FirebaseStorage */,
+				067F88102AE954FC00965A0B /* FirebaseAuth */,
 			);
 			productName = MVP;
 			productReference = 0687493C2AD9399800ACD45E /* MVP.app */;
@@ -377,6 +399,7 @@
 				068749402AD9399800ACD45E /* MVPApp.swift in Sources */,
 				0683D2322ADFE48A00865382 /* Repository.swift in Sources */,
 				0683D22C2ADFE3E800865382 /* PDFKitView.swift in Sources */,
+				067F880D2AE93A2600965A0B /* CommunicationProtocol.swift in Sources */,
 				0683D2262ADFE25100865382 /* ScanNFCView.swift in Sources */,
 				0683D2362ADFE50700865382 /* Ticket.swift in Sources */,
 				067D884A2AE2B7DC009A1025 /* ScanQRcodeView.swift in Sources */,
@@ -764,6 +787,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		067F88102AE954FC00965A0B /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0683D23D2ADFEA3A00865382 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
 		0683D23E2ADFEA3A00865382 /* FirebaseCrashlytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 0683D23D2ADFEA3A00865382 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

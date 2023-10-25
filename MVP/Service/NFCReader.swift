@@ -9,9 +9,9 @@ import Foundation
 import CoreNFC
 
 
-class NFCReader: NSObject, ObservableObject, NFCNDEFReaderSessionDelegate {
+class NFCReader: NSObject, ObservableObject, NFCNDEFReaderSessionDelegate, CommunicationProtocol {
     var NFCSession : NFCNDEFReaderSession?
-    @Published var nfcData: String = ""
+    @Published var data: String = ""
     
     
     func scan () {
@@ -35,7 +35,7 @@ class NFCReader: NSObject, ObservableObject, NFCNDEFReaderSessionDelegate {
         else {
             return 
         }
-        self.nfcData = payloadText
+        self.data = payloadText
         self.NFCSession?.invalidate()
 
     }

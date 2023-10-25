@@ -24,11 +24,11 @@ struct ScanQRcodeView: View {
     var body: some View {
     
             
-            if !qrDelelegate.scannedCode.isEmpty, let pdfUrl = URL(string: qrDelelegate.scannedCode) {
+            if !qrDelelegate.data.isEmpty, let pdfUrl = URL(string: qrDelelegate.data) {
                     VStack{
                         PDFKitView(url: pdfUrl)
                     }.overlay(
-                        HeaderButton(action: { qrDelelegate.scannedCode = ""
+                        HeaderButton(action: { qrDelelegate.data = ""
                             dismiss()
                         }, nameIcon: "xmark")
                             .padding(.horizontal, 20)
@@ -36,7 +36,7 @@ struct ScanQRcodeView: View {
                         , alignment: .topLeading)
                     .overlay(RegisterButton(title: "Enregistrer", action: {
                         Task {
-                            let NewTicket = Ticket(date: self.date, urlPDF: URL(string: qrDelelegate.scannedCode)!)
+                            let NewTicket = Ticket(date: self.date, urlPDF: URL(string: qrDelelegate.data)!)
                             try await vm.addTickets(ticket: NewTicket)
                             dismiss()
                         }
@@ -55,6 +55,14 @@ struct ScanQRcodeView: View {
                         
                         let size = $0.size
                         CameraView(session: $session, frameSize: CGSize(width: size.width, height: size.width))
+                            .overlay(
+                                Rectangle()
+                                    .stroke(Color.yellow, lineWidth: 2) 
+                                    .frame(width: size.width/3, height: size.width/3)
+                                    
+                            
+                            
+                            )
                         
                     }
                 }.onAppear(perform: checkCameraPermission)

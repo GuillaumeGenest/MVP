@@ -19,14 +19,13 @@ struct ScanNFCView: View {
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
-        VStack{
-            if !nfcReader.nfcData.isEmpty, let pdfUrl = URL(string: nfcReader.nfcData) {
+            if !nfcReader.data.isEmpty, let pdfUrl = URL(string: nfcReader.data) {
                 VStack{
                     PDFKitView(url: pdfUrl)
                 }.onAppear{
                     //download Item
                 }.overlay(
-                    HeaderButton(action: { nfcReader.nfcData = ""
+                    HeaderButton(action: { nfcReader.data = ""
                         dismiss()
                     }, nameIcon: "xmark")
                         .padding(.horizontal, 20)
@@ -34,7 +33,7 @@ struct ScanNFCView: View {
                     , alignment: .topLeading)
                 .overlay(RegisterButton(title: "Enregistrer", action: {
                     Task {
-                        let NewTicket = Ticket(date: self.date, urlPDF: URL(string: nfcReader.nfcData)!)
+                        let NewTicket = Ticket(date: self.date, urlPDF: URL(string: nfcReader.data)!)
                         try await vm.addTickets(ticket: NewTicket)
                         dismiss()
                     }
@@ -77,7 +76,6 @@ struct ScanNFCView: View {
                     nfcReader.scan()
                 }
             }
-        }
     }
 }
 
