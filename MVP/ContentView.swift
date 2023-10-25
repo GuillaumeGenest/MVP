@@ -69,9 +69,10 @@ struct ContentView: View {
                 
                 
                 
-                .padding(.all,35),alignment: .bottomTrailing)
+                .padding(.all,15),alignment: .bottomTrailing)
             .navigationDestination(isPresented: $ScanQRcodeTicket) {
-                ScanQRcodeView()
+                ScanQRcodeView(vm: viewModel
+                )
             }
             .navigationDestination(isPresented: $ScanNFCTicket) {
                     ScanNFCView(vm: viewModel)
