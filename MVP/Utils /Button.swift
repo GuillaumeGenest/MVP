@@ -44,6 +44,27 @@ struct RegisterButton: View {
             })
     }
 }
+struct CommunicationButtonView: View {
+    let iconName: String
+    let action: () -> Void
+    var body: some View {
+        Button(action: action, label: {
+            Image(systemName: iconName)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 25, height: 25)
+                .font(.title2)
+                .padding(10)
+                .foregroundColor(.primary)
+                .background(.thickMaterial)
+                .cornerRadius(10)
+                .shadow(radius: 4)
+            
+        })
+    }
+}
+
+
 
 struct NfcButtonView: View {
     let action: () -> Void
