@@ -54,16 +54,15 @@ struct ScanQRcodeView: View {
                     GeometryReader {
                         
                         let size = $0.size
-                        CameraView(session: $session, frameSize: CGSize(width: size.width, height: size.width))
-                            .overlay(
-                                Rectangle()
-                                    .stroke(Color.yellow, lineWidth: 2) 
-                                    .frame(width: size.width/3, height: size.width/3)
-                                    
+                        ZStack{
+                            CameraView(session: $session, frameSize: CGSize(width: size.width, height: size.height))
+                                .ignoresSafeArea(.all, edges: .all)
                             
+                            Rectangle()
+                                .stroke(Color.yellow, lineWidth: 2)
+                                .frame(width: size.width/3, height: size.width/3)
                             
-                            )
-                        
+                        }  
                     }
                 }.onAppear(perform: checkCameraPermission)
                     .alert(errorMessage, isPresented: $showError){
