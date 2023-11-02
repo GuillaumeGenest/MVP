@@ -10,7 +10,9 @@ import Firebase
 
 @main
 struct MVPApp: App {
-    
+    @State private var isShowingLogin: Bool = false
+    @StateObject var authentificationService = AuthentificationService()
+    @StateObject var appsettings = AppSettings()
     init() {
         FirebaseApp.configure()
     }
@@ -18,7 +20,32 @@ struct MVPApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ZStack{
+                if !appsettings.isShowingLogin {
+                    ContentView()
+                        .environmentObject(appsettings)
+                }
+            }.onAppear {
+                    let authUser = try? authentificationService.getAuthenticatedUser()
+                    appsettings.isShowingLogin = authUser == nil
+//                    if let authUser = authUser {
+//                        appsettings.SetUserIdCrashlytics(userId: authUser.uid)
+//                    }
+            }
+            .fullScreenCover(isPresented: $appsettings.isShowingLogin) {
+                NavigationStack {
+                    AuthentificationView(isShowingLogin: $appsettings.isShowingLogin)
+                }
+            }
         }
     }
+}
+
+
+class AppSettings: ObservableObject {
+    @Published var isShowingLogin: Bool = false
+
+//    func SetUserIdCrashlytics(userId: String) {
+//        Crashlytics.crashlytics().setUserID(userId)
+//    }
 }

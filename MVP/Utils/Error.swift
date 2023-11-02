@@ -51,3 +51,31 @@ enum StorageDatabaseError: Error, LocalizedError {
         }
     }
 }
+
+enum AuthentificationError: Error, LocalizedError {
+    case userAlreadyExists
+    case NoEmailorPassword
+    case userNotFound
+    case errorCheckUser
+    case errorUserIntheDatabase
+    case userNotFoundCreated
+    case NameAppleError
+    var errorDescription: String? {
+        switch self {
+        case .userAlreadyExists:
+            return "L'adressse email est déjà utilisée par un autre utilisateur \n Connectez vous avec cette adresse email"
+        case .NoEmailorPassword:
+            return "Aucun email ou mot de passe "
+        case .userNotFound:
+            return "Cet utilisateur n'existe pas, veuillez vous enregistrer"
+        case .userNotFoundCreated:
+            return " Cet utilisateur n'existe pas, il a été créé \n Vous pouvez supprimer votre compte en allant de Profil > Mon Compte > Supprimer ce compte"
+        case .errorCheckUser:
+            return "Une erreur dans la vérification d'authentification s'est produite"
+        case .errorUserIntheDatabase:
+            return "Une erreur s'est produite dans la base de données \n Veuillez contacter le support \n contact@sunnyonroads.com"
+        case .NameAppleError:
+            return "Vous avez déjà utilisé l'authentification avec Apple.\nPour vous connecter avec ce compte, allez dans Réglages > Identifiant Apple > Mot de passe et sécurité.\nSélectionnez 'Connexion avec Apple' > SunnyOnRoads > Arrêter d'utiliser l'identifiant Apple."
+        }
+    }
+}

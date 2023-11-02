@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    
+    @EnvironmentObject private var appsettings: AppSettings
     @StateObject var viewModel = ViewModel()
     @State var ScanNFCTicket : Bool = false
     @State var ScanQRcodeTicket : Bool = false
@@ -41,7 +41,6 @@ struct ContentView: View {
             .overlay(
                 VStack {
                     if isRotated == true {
-                        
                         
                         CommunicationButtonView(iconName: "dot.radiowaves.up.forward", action: {ScanNFCTicket.toggle()})
                         CommunicationButtonView(iconName: "qrcode.viewfinder", action: {ScanQRcodeTicket.toggle()})
@@ -85,5 +84,6 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+            .environmentObject(AppSettings())
     }
 }

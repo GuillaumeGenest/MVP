@@ -10,7 +10,7 @@ import SwiftUI
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-class FirestoreManager {
+class FirestoreManager: ObservableObject{
     let db = Firestore.firestore()
     private let ticketsCollection: CollectionReference = Firestore.firestore().collection("tickets")
     init() {}

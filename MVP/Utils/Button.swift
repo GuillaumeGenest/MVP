@@ -82,3 +82,23 @@ struct NfcButtonView: View {
         })
     }
 }
+
+struct button_log: View {
+    let name : String
+    let action: () -> Void
+    let colorbackground: Color
+    let colorforeground: Color
+    var body: some View {
+        Button(action: action, label: {
+        ZStack {
+        Text("\(name)")
+            .frame(maxWidth: .infinity)
+            .font(.headline)
+            .foregroundColor(colorforeground)
+            .padding()
+            .background(colorbackground)
+            .cornerRadius(35.0)
+        }.shadow(radius: 10)
+        })
+    }
+}
