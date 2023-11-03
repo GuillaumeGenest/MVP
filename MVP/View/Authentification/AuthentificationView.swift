@@ -29,18 +29,21 @@ struct AuthentificationView: View {
     }
     
     @State var currentMode: Mode = .SignIn
-    
+    @State var ShowSettings: Bool = false 
     
     
     var body: some View {
         NavigationStack{
             VStack(alignment: .center){
                 VStack{
-                    
+                    Text("Authentification")
                     Text("IMTY0")
+                        .font(.largeTitle)
+                        .bold()
+                        .foregroundColor(Color.bleu_empire)
                     if currentMode == .SignIn {
                         VStack(alignment: .center){
-                        SignIn
+                            SignIn
                         }.padding()
                             .background(Color.black.opacity(0.5))
                             .cornerRadius(20)
@@ -50,17 +53,17 @@ struct AuthentificationView: View {
                     }
                     if currentMode == .SignUp {
                         VStack(alignment: .center){
-                        SignUp
-                    }.padding()
-                        .background(Color.black.opacity(0.5))
-                        .cornerRadius(20)
-                        .padding()
-                        .cornerRadius(20)
-                        .padding(.bottom, 20)
+                            SignUp
+                        }.padding()
+                            .background(Color.black.opacity(0.5))
+                            .cornerRadius(20)
+                            .padding()
+                            .cornerRadius(20)
+                            .padding(.bottom, 20)
                     }
                     if currentMode == .SignInwithEmail {
                         ScrollView{
-                        VStack(alignment: .center){
+                            VStack(alignment: .center){
                                 SignInwithEmail
                             }.padding()
                                 .background(Color.black.opacity(0.5))
@@ -69,27 +72,27 @@ struct AuthentificationView: View {
                                 .cornerRadius(20)
                         }
                     }
-                if currentMode == .SignUpwithEmail {
-                    ScrollView{
-                        VStack(alignment: .center){
-                            SignUpwithEmail
-                        }.padding()
-                            .background(Color.black.opacity(0.5))
-                            .cornerRadius(20)
-                            .padding()
-                            .cornerRadius(20)
-                            .padding(.bottom, 20)
+                    if currentMode == .SignUpwithEmail {
+                        ScrollView{
+                            VStack(alignment: .center){
+                                SignUpwithEmail
+                            }.padding()
+                                .background(Color.black.opacity(0.5))
+                                .cornerRadius(20)
+                                .padding()
+                                .cornerRadius(20)
+                                .padding(.bottom, 20)
+                        }
                     }
                 }
-                }
-            }//.edgesIgnoringSafeArea(.all)
+            }
             .overlay(LoadingView(show: $viewmodel.isLoading))
             .alert(isPresented: $viewmodel.DisplayErrorMessage) {
-                    return Alert(title: Text("IMTY0"), message: Text(viewmodel.StatusMessage)
-                        .foregroundColor(.red),
-                           dismissButton: .cancel(Text("Annuler"))
-                     )
-                }
+                return Alert(title: Text("IMTY0"), message: Text(viewmodel.StatusMessage)
+                    .foregroundColor(.red),
+                             dismissButton: .cancel(Text("Annuler"))
+                )
+            }
             
         }
     }
@@ -187,7 +190,7 @@ struct AuthentificationView: View {
                 }
                 
                 Button {
-                    currentMode = .SignInwithEmail
+                    currentMode = .SignIn
                 } label: {
                     Text("Autre méthode de connexion")
                         .underline()
@@ -214,13 +217,12 @@ struct AuthentificationView: View {
                 Spacer()
             }
             Button(action: {
-                LoginWithApple()
+                SignInWithApple()
             }, label: {
-                Text("Sign With Apple")
-                //SignInWithAppleButtonView(type: .signIn, style: .black)
-                //    .cornerRadius(10)
+                SignInWithAppleButtonView(type: .signIn, style: .black)
+                    .cornerRadius(10)
             })
-            .frame(height: 55)
+            .frame(height: 45)
             GoogleSignInButton(viewModel: GoogleSignInButtonViewModel(scheme: .light, style: .standard, state: .normal)) {
                 SignInWithGoogle()
             }
@@ -241,7 +243,7 @@ struct AuthentificationView: View {
                     Text("Se connecter avec email")
                 }.font(.headline)
                     .foregroundColor(.white)
-                    .frame(height: 55)
+                    .frame(height: 45)
                     .frame(maxWidth: .infinity)
                 
                     .overlay(
@@ -249,26 +251,7 @@ struct AuthentificationView: View {
                             .stroke(Color.white, lineWidth: 2)
                     )
             }
-            
-            Button {
-                
-            } label: {
-                HStack{
-                    Image(systemName: "phone.badge.checkmark")
-                    Text("Se connecter avec son téléphone")
-                }.font(.headline)
-                    .foregroundColor(.white)
-                    .frame(height: 55)
-                    .frame(maxWidth: .infinity)
-                
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 10)
-                            .stroke(Color.white, lineWidth: 2)
-                    )
-            }
-            
-            
-            
+                        
             VStack{
                 HStack{
                     Text("Pas encore inscrit ?")
@@ -299,22 +282,14 @@ struct AuthentificationView: View {
                     .bold()
                 Spacer()
             }
-//            Button(action: {
-//                Task{
-//                    do {
-//                        try await loginData.signUpWithApple()
-//                        loginData.isLoading.toggle()
-//                        self.isShowingLogin.toggle()
-//                    } catch {
-//                        self.loginData.isLoading.toggle()
-//                        await loginData.setError(error)
-//                    }
-//                }
-//            }, label: {
-//                SignInWithAppleButtonView(type: .signUp, style: .black)
-//                    .cornerRadius(10)
-//            })
-//            .frame(height: 55)
+            Button(action: {
+                SignUpWithApple()
+            }, label: {
+                
+                SignInWithAppleButtonView(type: .signUp, style: .black)
+                    .cornerRadius(10)
+            })
+            .frame(height: 45)
             GoogleSignInButton(viewModel: GoogleSignInButtonViewModel(scheme: .light, style: .standard, state: .normal)) {
                 SignUpWithGoogle()
             }.cornerRadius(10)
@@ -335,7 +310,7 @@ struct AuthentificationView: View {
                     Text("S'inscire avec email")
                 }.font(.headline)
                     .foregroundColor(.white)
-                    .frame(height: 55)
+                    .frame(height: 45)
                     .frame(maxWidth: .infinity)
                 
                     .overlay(
@@ -343,25 +318,6 @@ struct AuthentificationView: View {
                             .stroke(Color.white, lineWidth: 2)
                     )
             }
-            
-            Button {
-                
-            } label: {
-                HStack{
-                    Image(systemName: "phone.badge.checkmark")
-                    Text("S'inscire avec son téléphone")
-                }.font(.headline)
-                    .foregroundColor(.white)
-                    .frame(height: 55)
-                    .frame(maxWidth: .infinity)
-                
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 10)
-                            .stroke(Color.white, lineWidth: 2)
-                    )
-            }
-            
-            
             VStack{
                 HStack{
                     Text("Déjà inscrit ?")
@@ -376,17 +332,17 @@ struct AuthentificationView: View {
                     }
                     
                 }.font(.callout)
-                .padding(.vertical, 8)
+                    .padding(.vertical, 8)
                 VStack{
                     HStack{
                         Text("En vous inscrivant, vous acceptez ") + Text("**[les conditions générales](https://sunnyonroads.com)**").underline() +
                         Text(" et ") +  Text("**[politique de confidentialité](https://sunnyonroads.com/policy.html)**").underline().foregroundColor(.white)
                     }.tint(.white)
-                            .foregroundColor(.white)
-                           
-                        
+                        .foregroundColor(.white)
                     
-                        }.foregroundColor(Color.white)
+                    
+                    
+                }.foregroundColor(Color.white)
                     .font(.footnote)
                     .padding(.vertical, 4)
                 
@@ -426,25 +382,39 @@ struct AuthentificationView: View {
         }
     }
     
+private func SignUpWithApple() {
     
-    private func LoginWithApple() {
-        //    Task{
-        //        do {
-        //            try await loginData.signInWithApple()
-        //            self.isShowingLogin.toggle()
-        //            loginData.isLoading = false
-        //        }
-        //        catch SignUpError.userNotFoundCreated {
-        //            loginData.isLoading = false
-        //            print("error SignUpError.userNotFoundCreated")
-        //            print("tentative affichage")
-        //            showAlertWithAutoDismiss(message: SignUpError.userNotFoundCreated.errorDescription ?? "Error")
-        //        }
-        //        catch {
-        //            loginData.isLoading.toggle()
-        //            await loginData.setError(error)
-        //        }
-        //    }
+    Task{
+        do {
+            try await viewmodel.signUpWithApple()
+            viewmodel.isLoading.toggle()
+            self.isShowingLogin.toggle()
+        }
+        catch AuthentificationError.userNotFoundCreated {
+                viewmodel.isLoading = false
+                print("error SignUpError.userNotFoundCreated")
+                print("tentative affichage")
+            }
+         catch {
+            self.viewmodel.isLoading.toggle()
+            await viewmodel.setError(error)
+        }
+    }
+}
+    
+    
+    private func SignInWithApple() {
+        Task{
+            do {
+                try await viewmodel.signInWithApple()
+                self.isShowingLogin.toggle()
+                viewmodel.isLoading = false
+            }
+            catch {
+                viewmodel.isLoading.toggle()
+                await viewmodel.setError(error)
+            }
+        }
     }
     
     

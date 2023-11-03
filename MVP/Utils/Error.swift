@@ -53,6 +53,7 @@ enum StorageDatabaseError: Error, LocalizedError {
 }
 
 enum AuthentificationError: Error, LocalizedError {
+    case UserIsNotConnected
     case userAlreadyExists
     case NoEmailorPassword
     case userNotFound
@@ -62,6 +63,8 @@ enum AuthentificationError: Error, LocalizedError {
     case NameAppleError
     var errorDescription: String? {
         switch self {
+        case .UserIsNotConnected:
+            return "L'utilisateur n'est pas connecté "
         case .userAlreadyExists:
             return "L'adressse email est déjà utilisée par un autre utilisateur \n Connectez vous avec cette adresse email"
         case .NoEmailorPassword:

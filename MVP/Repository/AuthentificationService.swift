@@ -54,6 +54,14 @@ final class AuthentificationService: ObservableObject{
         try Auth.auth().signOut()
     }
     
+    func delete() async throws {
+          guard let user = Auth.auth().currentUser else {
+              throw AuthentificationError.UserIsNotConnected
+          }
+          
+          try await user.delete()
+      }
+    
     
 }
 
@@ -108,6 +116,12 @@ extension AuthentificationService {
             return try await signIn(credential: credential)
         }
     }
+    
+    @discardableResult
+        func signInWithApple(tokens: SignInWithAppleResult) async throws -> AuthDataResultModel {
+            let credential =  OAuthProvider.credential(withProviderID: AuthProviderOption.apple.rawValue, idToken: tokens.token, rawNonce: tokens.nonce)
+            return try await signIn(credential: credential)
+        }
 }
 
 

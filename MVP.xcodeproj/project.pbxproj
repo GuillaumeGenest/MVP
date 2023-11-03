@@ -46,6 +46,7 @@
 		068FC1892AF39A67007F8CD7 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 068FC1882AF39A67007F8CD7 /* GoogleSignInSwift */; };
 		068FC18B2AF3A1E9007F8CD7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 068FC18A2AF3A1E9007F8CD7 /* GoogleService-Info.plist */; };
 		068FC18D2AF3D13C007F8CD7 /* GoogleSignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068FC18C2AF3D13C007F8CD7 /* GoogleSignIn.swift */; };
+		06D5AFA02AF51DA500F7A4DF /* SignInApple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D5AF9F2AF51DA500F7A4DF /* SignInApple.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -101,6 +102,7 @@
 		0687495D2AD9399E00ACD45E /* MVPUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVPUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		068FC18A2AF3A1E9007F8CD7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		068FC18C2AF3D13C007F8CD7 /* GoogleSignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignIn.swift; sourceTree = "<group>"; };
+		06D5AF9F2AF51DA500F7A4DF /* SignInApple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInApple.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +162,7 @@
 				0679FBAE2AE6BD380001D5A8 /* QRcodeScan.swift */,
 				067F880C2AE93A2600965A0B /* CommunicationProtocol.swift */,
 				068FC18C2AF3D13C007F8CD7 /* GoogleSignIn.swift */,
+				06D5AF9F2AF51DA500F7A4DF /* SignInApple.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -420,6 +423,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				06D5AFA02AF51DA500F7A4DF /* SignInApple.swift in Sources */,
 				0683D2282ADFE29600865382 /* NFCReader.swift in Sources */,
 				0683D2342ADFE4D000865382 /* ViewModel.swift in Sources */,
 				0683D2382ADFE66A00865382 /* TicketCell.swift in Sources */,

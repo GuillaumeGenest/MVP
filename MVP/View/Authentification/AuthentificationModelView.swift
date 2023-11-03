@@ -50,6 +50,15 @@ final class AuthentificationModelView: ObservableObject {
         }
         
     }
+    
+    func signOut() throws {
+            try authentificationService.signOut()
+    }
+    
+    func deleteAccount() async throws {
+        try await authentificationService.delete()
+        }
+    
     @MainActor
     func signInWithGoogle() async throws {
         do {
@@ -58,7 +67,7 @@ final class AuthentificationModelView: ObservableObject {
         let authDataResult = try await authentificationService.signInWithGoogle(tokens: tokens)
         let userID = authDataResult.uid
         self.isLoading = true
-        let userExists = try await usermanager.CheckIfUserExist(with: userID) // Utilise la fonction CheckIfUserExist de UserManager
+        let userExists = try await usermanager.CheckIfUserExist(with: userID)
         if !userExists {
         print("Erreur lors de la vérification de l'utilisateur : \(AuthentificationError.errorUserIntheDatabase.localizedDescription)")
             throw AuthentificationError.errorUserIntheDatabase
@@ -83,6 +92,62 @@ final class AuthentificationModelView: ObservableObject {
             throw error
         }
     }
+    
+    @MainActor
+    func signUpWithApple() async throws {
+        self.isLoading.toggle()
+        let helper = SignInAppleHelper()
+        let tokens = try await helper.startSignInWithAppleFlow()
+        let authDataResult = try await authentificationService.signInWithApple(tokens: tokens)
+        let userID = authDataResult.uid
+        guard let name = tokens.name, !name.isEmpty else {
+                try await deleteAccount()
+                throw AuthentificationError.NameAppleError
+        }
+        do {
+        let userExists = try await usermanager.CheckIfUserExist(with: userID)
+            if userExists {
+                print("L'utilisateur existe déjà: vous pouvez vous connectez  : \(AuthentificationError.userAlreadyExists.localizedDescription)")
+                try signOut()
+                throw AuthentificationError.userAlreadyExists
+            }
+            if !userExists {
+                let newUser = UserModel(id: userID, name: tokens.name ?? "", email: authDataResult.email ?? "", imageURL: "")
+                try await usermanager.createUser(user: newUser)
+            }
+        } catch {
+            print("Erreur : \(error)")
+            throw error
+        }
+        
+    }
+    
+    @MainActor
+    func signInWithApple() async throws {
+        self.isLoading = true
+        let helper = SignInAppleHelper()
+        let tokens = try await helper.startSignInWithAppleFlow()
+        let authDataResult = try await authentificationService.signInWithApple(tokens: tokens)
+        let userID = authDataResult.uid
+        do {
+            let userExists = try await usermanager.CheckIfUserExist(with: userID)
+            if !userExists {
+                guard let name = tokens.name, !name.isEmpty else {
+                        try await deleteAccount()
+                        throw AuthentificationError.userNotFound
+                }
+                print("Erreur lors de la vérification de l'utilisateur : \(AuthentificationError.errorUserIntheDatabase.localizedDescription)")
+                let newUser = UserModel(id: userID, name: tokens.name ?? "Prénom", email: authDataResult.email ?? "", imageURL: "")
+                try await usermanager.createUser(user: newUser)
+                throw AuthentificationError.userNotFoundCreated
+            }
+        } catch {
+            print("Erreur : \(error)")
+            throw error
+        }
+    }
+    
+    
     
     
     
