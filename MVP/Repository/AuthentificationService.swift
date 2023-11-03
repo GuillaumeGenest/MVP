@@ -9,7 +9,7 @@ import Foundation
 import Firebase
 import FirebaseAuth
 
-class AuthentificationService: ObservableObject{
+final class AuthentificationService: ObservableObject{
     
     
     func getAuthenticatedUser() throws -> AuthDataResultModel {
@@ -35,6 +35,26 @@ class AuthentificationService: ObservableObject{
         }
         return providers
     }
+    
+    
+    func CheckIfEmailExists(UserEmail: String, completion: @escaping (Result<[String]?, Error>) -> Void) {
+        Auth.auth().fetchSignInMethods(forEmail: UserEmail, completion: { signInMethods, error in
+            if let error = error {
+                completion(.failure(error))
+            }
+            if let signInMethods = signInMethods{
+                completion(.success(signInMethods))
+                
+            }
+        })
+    }
+    
+    
+    func signOut()  throws {
+        try Auth.auth().signOut()
+    }
+    
+    
 }
 
 
@@ -65,6 +85,52 @@ extension AuthentificationService {
     
 }
 
+extension AuthentificationService {
+    
+    @discardableResult
+    func signInWithGoogle(tokens: GoogleSignInResultModel) async throws -> AuthDataResultModel {
+        let credential = GoogleAuthProvider.credential(withIDToken: tokens.idToken, accessToken: tokens.accessToken)
+        let userExists = try await checkUserExists(email: tokens.email ?? "")
+        if !userExists {
+            throw AuthentificationError.userAlreadyExists
+        } else {
+            return try await signIn(credential: credential)
+        }
+    }
+    
+    @discardableResult
+    func signUpWithGoogle(tokens: GoogleSignInResultModel) async throws -> AuthDataResultModel {
+        let credential = GoogleAuthProvider.credential(withIDToken: tokens.idToken, accessToken: tokens.accessToken)
+        let userExists = try await checkUserExists(email: tokens.email ?? "")
+        if userExists {
+            throw AuthentificationError.userAlreadyExists
+        } else {
+            return try await signIn(credential: credential)
+        }
+    }
+}
+
+
+
+
+
+extension AuthentificationService {
+        func signIn(credential: AuthCredential) async throws -> AuthDataResultModel {
+            let authDataResult = try await Auth.auth().signIn(with: credential)
+            return AuthDataResultModel(user: authDataResult.user)
+        }
+    
+    
+    @discardableResult
+        func checkUserExists(email: String) async throws -> Bool {
+            do {
+                let signInMethods = try await Auth.auth().fetchSignInMethods(forEmail: email)
+                return !signInMethods.isEmpty
+            } catch {
+                throw AuthentificationError.errorCheckUser
+            }
+        }
+}
 
 
 struct AuthDataResultModel {

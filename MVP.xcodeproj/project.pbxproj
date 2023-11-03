@@ -19,7 +19,6 @@
 		067F88112AE954FC00965A0B /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 067F88102AE954FC00965A0B /* FirebaseAuth */; };
 		0683D2262ADFE25100865382 /* ScanNFCView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0683D2252ADFE25100865382 /* ScanNFCView.swift */; };
 		0683D2282ADFE29600865382 /* NFCReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0683D2272ADFE29600865382 /* NFCReader.swift */; };
-		0683D22A2ADFE32300865382 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0683D2292ADFE32200865382 /* GoogleService-Info.plist */; };
 		0683D22C2ADFE3E800865382 /* PDFKitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0683D22B2ADFE3E800865382 /* PDFKitView.swift */; };
 		0683D22E2ADFE41A00865382 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0683D22D2ADFE41A00865382 /* Color.swift */; };
 		0683D2302ADFE42900865382 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0683D22F2ADFE42900865382 /* Error.swift */; };
@@ -45,6 +44,8 @@
 		0687495E2AD9399E00ACD45E /* MVPUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0687495D2AD9399E00ACD45E /* MVPUITestsLaunchTests.swift */; };
 		068FC1872AF39A67007F8CD7 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 068FC1862AF39A67007F8CD7 /* GoogleSignIn */; };
 		068FC1892AF39A67007F8CD7 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 068FC1882AF39A67007F8CD7 /* GoogleSignInSwift */; };
+		068FC18B2AF3A1E9007F8CD7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 068FC18A2AF3A1E9007F8CD7 /* GoogleService-Info.plist */; };
+		068FC18D2AF3D13C007F8CD7 /* GoogleSignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068FC18C2AF3D13C007F8CD7 /* GoogleSignIn.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,7 +77,6 @@
 		067F880C2AE93A2600965A0B /* CommunicationProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunicationProtocol.swift; sourceTree = "<group>"; };
 		0683D2252ADFE25100865382 /* ScanNFCView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanNFCView.swift; sourceTree = "<group>"; };
 		0683D2272ADFE29600865382 /* NFCReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFCReader.swift; sourceTree = "<group>"; };
-		0683D2292ADFE32200865382 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0683D22B2ADFE3E800865382 /* PDFKitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFKitView.swift; sourceTree = "<group>"; };
 		0683D22D2ADFE41A00865382 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		0683D22F2ADFE42900865382 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
@@ -99,6 +99,8 @@
 		068749572AD9399E00ACD45E /* MVPUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MVPUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0687495B2AD9399E00ACD45E /* MVPUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVPUITests.swift; sourceTree = "<group>"; };
 		0687495D2AD9399E00ACD45E /* MVPUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVPUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		068FC18A2AF3A1E9007F8CD7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		068FC18C2AF3D13C007F8CD7 /* GoogleSignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignIn.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,6 +159,7 @@
 				0683D2272ADFE29600865382 /* NFCReader.swift */,
 				0679FBAE2AE6BD380001D5A8 /* QRcodeScan.swift */,
 				067F880C2AE93A2600965A0B /* CommunicationProtocol.swift */,
+				068FC18C2AF3D13C007F8CD7 /* GoogleSignIn.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -240,8 +243,8 @@
 				068749432AD9399D00ACD45E /* Assets.xcassets */,
 				068749452AD9399D00ACD45E /* MVP.entitlements */,
 				068749462AD9399D00ACD45E /* Preview Content */,
-				0683D2292ADFE32200865382 /* GoogleService-Info.plist */,
 				06854C482AE10DDA000C86DE /* Info.plist */,
+				068FC18A2AF3A1E9007F8CD7 /* GoogleService-Info.plist */,
 			);
 			path = MVP;
 			sourceTree = "<group>";
@@ -392,7 +395,7 @@
 			files = (
 				068749482AD9399D00ACD45E /* Preview Assets.xcassets in Resources */,
 				068749442AD9399D00ACD45E /* Assets.xcassets in Resources */,
-				0683D22A2ADFE32300865382 /* GoogleService-Info.plist in Resources */,
+				068FC18B2AF3A1E9007F8CD7 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -435,6 +438,7 @@
 				062D8CAD2AEA7AF000A2ECBA /* AuthentificationView.swift in Sources */,
 				0683D2302ADFE42900865382 /* Error.swift in Sources */,
 				0683D24B2ADFF58200865382 /* TicketView.swift in Sources */,
+				068FC18D2AF3D13C007F8CD7 /* GoogleSignIn.swift in Sources */,
 				0683D22E2ADFE41A00865382 /* Color.swift in Sources */,
 				0683D23C2ADFE73400865382 /* Button.swift in Sources */,
 				0679FBAF2AE6BD380001D5A8 /* QRcodeScan.swift in Sources */,

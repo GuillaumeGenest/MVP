@@ -28,3 +28,18 @@ class UserManager: ObservableObject{
         }
     }
 }
+
+
+
+
+
+extension UserManager {
+    func CheckIfUserExist(with userID: String) async throws -> Bool {
+        do {
+            let documentSnapshot = try await userDocument(userId: userID).getDocument()
+            return documentSnapshot.exists
+        } catch {
+            throw error
+        }
+    }
+}

@@ -8,8 +8,8 @@
 import Foundation
 
 
-
-class AuthentificationModelView: ObservableObject {
+@MainActor
+final class AuthentificationModelView: ObservableObject {
     @Published var authentificationService = AuthentificationService()
     @Published var usermanager = UserManager()
     
@@ -30,7 +30,7 @@ class AuthentificationModelView: ObservableObject {
             try await authentificationService.signInUser(email: email, password: password)
         }
         catch {
-            
+            throw error
         }
     }
     
@@ -50,6 +50,40 @@ class AuthentificationModelView: ObservableObject {
         }
         
     }
+    @MainActor
+    func signInWithGoogle() async throws {
+        do {
+        let helper = SignInGoogleHelper()
+        let tokens = try await helper.signIn()
+        let authDataResult = try await authentificationService.signInWithGoogle(tokens: tokens)
+        let userID = authDataResult.uid
+        self.isLoading = true
+        let userExists = try await usermanager.CheckIfUserExist(with: userID) // Utilise la fonction CheckIfUserExist de UserManager
+        if !userExists {
+        print("Erreur lors de la vérification de l'utilisateur : \(AuthentificationError.errorUserIntheDatabase.localizedDescription)")
+            throw AuthentificationError.errorUserIntheDatabase
+        }
+        } catch {
+            print("Erreur:  \(error)")
+            throw error
+        }
+    }
+    
+    @MainActor
+    func signUpWithGoogle() async throws {
+        do {
+            let helper = SignInGoogleHelper()
+            let tokens = try await helper.signIn()
+            let authDataResult = try await authentificationService.signUpWithGoogle(tokens: tokens)
+            let userID = authDataResult.uid
+            let newUser = UserModel(id: userID, name: tokens.name ?? "", email: authDataResult.email ?? "", imageURL: authDataResult.photoUrl ?? "")
+            self.isLoading.toggle()
+            try await usermanager.createUser(user: newUser)
+        } catch {
+            throw error
+        }
+    }
+    
     
     
     @MainActor
@@ -60,4 +94,11 @@ class AuthentificationModelView: ObservableObject {
             DisplayErrorMessage = true
         }
     }
+}
+
+
+extension AuthentificationModelView {
+    
+    
+    
 }
