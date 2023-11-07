@@ -43,3 +43,28 @@ extension UserManager {
         }
     }
 }
+
+
+extension UserManager {
+    func getUserById(userId: String) async throws -> UserModel? {
+        let userDocument = userCollection.document(userId)
+
+        do {
+            let documentSnapshot = try await userDocument.getDocument()
+
+            if documentSnapshot.exists {
+                if let userData = try? documentSnapshot.data(as: UserModel.self) {
+                    return userData
+                } else {
+                    throw FirebaseDatabaseError.dictionaryConversionFailed
+                }
+            } else {
+                throw FirebaseDatabaseError.userNotFound
+            }
+        } catch {
+            throw FirebaseDatabaseError.getDataError
+        }
+    }
+
+
+}
