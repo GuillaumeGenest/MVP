@@ -22,8 +22,7 @@ struct MVPApp: App {
         WindowGroup {
             ZStack{
                 if !appsettings.isShowingLogin {
-                    ContentView()
-                        .environmentObject(appsettings)
+                    TabbarView(showSignInView: $appsettings.isShowingLogin)
                 }
             }.onAppear {
                     let authUser = try? authentificationService.getAuthenticatedUser()

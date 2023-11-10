@@ -23,8 +23,7 @@ final class AuthentificationModelView: ObservableObject {
     func signInWithEmail(email: String, password: String) async throws{
         print("logIn d'un utilisateur")
         guard !email.isEmpty, !password.isEmpty else {
-                   print("No email or password found.")
-                   return
+            throw AuthentificationError.NoEmailorPassword
         }
         do {
             try await authentificationService.signInUser(email: email, password: password)
@@ -37,8 +36,7 @@ final class AuthentificationModelView: ObservableObject {
     func signUpWithEmail(email: String, password: String, name: String) async throws{
         print("Creation d'un utilisateur")
         guard !email.isEmpty, !password.isEmpty else {
-                   print("No email or password found.")
-                   return
+            throw AuthentificationError.NoEmailorPassword
         }
         do {
             let authDataResult = try await authentificationService.createUser(email: email, password: password)
@@ -53,6 +51,19 @@ final class AuthentificationModelView: ObservableObject {
     
     func signOut() throws {
             try authentificationService.signOut()
+    }
+    
+    func resetPassword(email: String){
+        Task {
+            do {
+                try await authentificationService.resetPassword(email: email)
+                self.StatusMessage = "Une demande de réinitialisation du mot de passe \na été envoyé à l'adresse suivante \(email)"
+                self.DisplayErrorMessage.toggle()
+            }
+            catch {
+                await setError(error)
+            }
+        }
     }
     
     func deleteAccount() async throws {
@@ -161,9 +172,18 @@ final class AuthentificationModelView: ObservableObject {
     }
 }
 
-
 extension AuthentificationModelView {
-    
-    
-    
+    func isValidEmail(_ email: String, confirmationEmail: String) throws {
+        let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        let isEmailValid = NSPredicate(format: "SELF MATCHES %@", emailRegex).evaluate(with: email)
+        let IsEmailsMatch = email == confirmationEmail
+        
+        guard isEmailValid else {
+            throw AuthentificationError.invalidFormatEmail
+        }
+        
+        guard IsEmailsMatch else {
+            throw AuthentificationError.emailsDoNotMatch
+        }
+    }
 }

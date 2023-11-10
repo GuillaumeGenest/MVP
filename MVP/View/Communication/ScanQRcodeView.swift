@@ -45,12 +45,6 @@ struct ScanQRcodeView: View {
         , alignment: .bottom)
             } else {
                 VStack{
-                    
-                    Text("Place the QR code inside the area")
-                        .font(.title3)
-                        .padding(.top, 20)
-                    Text("Scanning will start automatically")
-                        .font(.callout)
                     GeometryReader {
                         
                         let size = $0.size
@@ -64,7 +58,8 @@ struct ScanQRcodeView: View {
                             
                         }  
                     }
-                }.onAppear(perform: checkCameraPermission)
+                }
+                .onAppear(perform: checkCameraPermission)
                     .alert(errorMessage, isPresented: $showError){
                         if cameraPermission == .Denied {
                             Button("Settings"){

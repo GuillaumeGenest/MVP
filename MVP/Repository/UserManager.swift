@@ -27,6 +27,15 @@ class UserManager: ObservableObject{
             throw AuthentificationError.userAlreadyExists
         }
     }
+    
+    func getUser(userId: String) async throws -> UserModel {
+        do {
+            return try await userDocument(userId: userId).getDocument(as: UserModel.self)
+        } catch {
+            throw FirebaseDatabaseError.userNotFound
+        }
+    }
+    
 }
 
 

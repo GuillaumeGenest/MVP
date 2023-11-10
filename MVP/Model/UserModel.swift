@@ -77,4 +77,6 @@ struct RestIdUser: Codable{
 }
 
 var MockedDataUser : UserModel = UserModel(id: "testid", name: "test", email: "test@test.com", imageURL: "")
-
+extension UserModel {
+    static let fakeUser = UserModel(id: "testid", name: "test", email: "test@test.com", imageURL: "")
+}

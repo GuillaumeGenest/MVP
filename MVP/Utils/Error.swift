@@ -7,6 +7,19 @@
 
 import Foundation
 
+enum Server: Error, LocalizedError {
+    case badServerResponse
+    
+    var errorDescription: String? {
+        switch self {
+        case .badServerResponse:
+            return "Erreur de connection avec le serveur"
+        }
+    }
+}
+
+
+
 enum FirebaseDatabaseError: Error, LocalizedError {
     case jsonEncodingFailed
     case dictionaryConversionFailed
@@ -61,6 +74,9 @@ enum AuthentificationError: Error, LocalizedError {
     case errorUserIntheDatabase
     case userNotFoundCreated
     case NameAppleError
+    case invalidEmail
+    case emailsDoNotMatch
+    case invalidFormatEmail
     var errorDescription: String? {
         switch self {
         case .UserIsNotConnected:
@@ -68,7 +84,7 @@ enum AuthentificationError: Error, LocalizedError {
         case .userAlreadyExists:
             return "L'adressse email est déjà utilisée par un autre utilisateur \n Connectez vous avec cette adresse email"
         case .NoEmailorPassword:
-            return "Aucun email ou mot de passe "
+            return "Aucun email ou mot de passe n'a été renseigné. Veuillez verifier vos informations"
         case .userNotFound:
             return "Cet utilisateur n'existe pas, veuillez vous enregistrer"
         case .userNotFoundCreated:
@@ -76,9 +92,15 @@ enum AuthentificationError: Error, LocalizedError {
         case .errorCheckUser:
             return "Une erreur dans la vérification d'authentification s'est produite"
         case .errorUserIntheDatabase:
-            return "Une erreur s'est produite dans la base de données \n Veuillez contacter le support \n contact@sunnyonroads.com"
+            return "Une erreur s'est produite dans la base de données \n Veuillez contacter le support \n contact@imty0.com"
         case .NameAppleError:
-            return "Vous avez déjà utilisé l'authentification avec Apple.\nPour vous connecter avec ce compte, allez dans Réglages > Identifiant Apple > Mot de passe et sécurité.\nSélectionnez 'Connexion avec Apple' > SunnyOnRoads > Arrêter d'utiliser l'identifiant Apple."
+            return "Vous avez déjà utilisé l'authentification avec Apple.\nPour vous connecter avec ce compte, allez dans Réglages > Identifiant Apple > Mot de passe et sécurité.\nSélectionnez 'Connexion avec Apple' > Imty0 > Arrêter d'utiliser l'identifiant Apple."
+        case .invalidEmail:
+            return "L'email est invalide"
+        case .emailsDoNotMatch:
+            return "Les emails ne correspondent pas"
+        case .invalidFormatEmail:
+            return "L'email n'est pas dans le bon format"
         }
     }
 }

@@ -85,7 +85,7 @@ struct AuthentificationView: View {
                         }
                     }
                 }
-            }
+            }.frame(maxWidth: .infinity, maxHeight: .infinity)
             .overlay(LoadingView(show: $viewmodel.isLoading))
             .alert(isPresented: $viewmodel.DisplayErrorMessage) {
                 return Alert(title: Text("IMTY0"), message: Text(viewmodel.StatusMessage)
@@ -180,7 +180,7 @@ struct AuthentificationView: View {
                     loginUser()
                 }, colorbackground: Color.bleu_empire, colorforeground: .white)
                 Button {
-                    // loginData.ResetPassword(UserEmail: UserEmail)
+                    viewmodel.resetPassword(email: UserEmail)
                 } label: {
                     Text("Mot de passe oublié ?")
                         .underline()
@@ -363,21 +363,23 @@ struct AuthentificationView: View {
                 viewmodel.isLoading = false
                 self.isShowingLogin.toggle()
             }catch {
-                print("error \(error.localizedDescription)")
+                viewmodel.isLoading = false
+                await viewmodel.setError(error)
             }
         }
     }
     
     private func createUser() {
-        
         Task {
             do {
                 viewmodel.isLoading = true
+                try viewmodel.isValidEmail(UserEmail, confirmationEmail: UserEmailConfirmation)
                 try await viewmodel.signUpWithEmail(email: self.UserEmail, password: self.Password, name: self.UserName)
                 viewmodel.isLoading = false
                 self.isShowingLogin.toggle()
             } catch  {
-                print("error \(error.localizedDescription)")
+                viewmodel.isLoading = false
+                await viewmodel.setError(error)
             }
         }
     }
@@ -396,7 +398,7 @@ private func SignUpWithApple() {
                 print("tentative affichage")
             }
          catch {
-            self.viewmodel.isLoading.toggle()
+             viewmodel.isLoading = false
             await viewmodel.setError(error)
         }
     }

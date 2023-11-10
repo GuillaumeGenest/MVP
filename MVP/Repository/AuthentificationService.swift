@@ -14,7 +14,7 @@ final class AuthentificationService: ObservableObject{
     
     func getAuthenticatedUser() throws -> AuthDataResultModel {
         guard let user = Auth.auth().currentUser else {
-            throw URLError(.badServerResponse)
+            throw Server.badServerResponse
         }
         
         return AuthDataResultModel(user: user)
@@ -22,7 +22,7 @@ final class AuthentificationService: ObservableObject{
     
     func getProviders() throws -> [AuthProviderOption] {
         guard let providerData = Auth.auth().currentUser?.providerData else {
-            throw URLError(.badServerResponse)
+            throw Server.badServerResponse
         }
         
         var providers: [AuthProviderOption] = []
@@ -47,6 +47,19 @@ final class AuthentificationService: ObservableObject{
                 
             }
         })
+    }
+    
+    func resetPassword(email: String) async throws {
+        let authUser = try getAuthenticatedUser()
+        guard let email = authUser.email else {
+            throw AuthentificationError.invalidEmail
+        }
+        do {
+            try await Auth.auth().sendPasswordReset(withEmail: email)
+        }
+        catch {
+            throw AuthentificationError.errorUserIntheDatabase
+        }
     }
     
     
@@ -83,6 +96,10 @@ extension AuthentificationService {
        func signInUser(email: String, password: String) async throws -> AuthDataResultModel {
            do {
                let authDataResult = try await Auth.auth().signIn(withEmail: email, password: password)
+               let userExists = try await checkUserExists(email: authDataResult.user.email ?? "")
+               guard !userExists else {
+                   throw AuthentificationError.userNotFound
+               }
                return AuthDataResultModel(user: authDataResult.user)
            } catch{
                throw AuthentificationError.userNotFound
@@ -99,12 +116,13 @@ extension AuthentificationService {
     func signInWithGoogle(tokens: GoogleSignInResultModel) async throws -> AuthDataResultModel {
         let credential = GoogleAuthProvider.credential(withIDToken: tokens.idToken, accessToken: tokens.accessToken)
         let userExists = try await checkUserExists(email: tokens.email ?? "")
-        if !userExists {
-            throw AuthentificationError.userAlreadyExists
-        } else {
-            return try await signIn(credential: credential)
+        guard !userExists else {
+            throw AuthentificationError.userNotFound
         }
+        
+        return try await signIn(credential: credential)
     }
+
     
     @discardableResult
     func signUpWithGoogle(tokens: GoogleSignInResultModel) async throws -> AuthDataResultModel {

@@ -56,7 +56,12 @@
 		0694271E2AFA7CE700D23EBF /* MVPTests_AuthentificationEmail_Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0694271D2AFA7CE700D23EBF /* MVPTests_AuthentificationEmail_Test.swift */; };
 		069427202AFA7E7500D23EBF /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 0694271F2AFA7E7500D23EBF /* GoogleSignIn */; };
 		06980BCF2AFA935E00EB94FA /* MVPTests_UserManager_Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06980BCE2AFA935E00EB94FA /* MVPTests_UserManager_Test.swift */; };
+		06980BD12AFAA29300EB94FA /* TabbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06980BD02AFAA29300EB94FA /* TabbarView.swift */; };
+		06980BD32AFAA61A00EB94FA /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06980BD22AFAA61A00EB94FA /* Settings.swift */; };
+		06980BD62AFAA63900EB94FA /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06980BD52AFAA63900EB94FA /* SettingsViewModel.swift */; };
+		069935B82AFB7DA400462FA8 /* CommunicationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 069935B72AFB7DA400462FA8 /* CommunicationView.swift */; };
 		06D5AFA02AF51DA500F7A4DF /* SignInApple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D5AF9F2AF51DA500F7A4DF /* SignInApple.swift */; };
+		06F6BF7A2AFBE1A600917B27 /* ParameterSettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F6BF792AFBE1A600917B27 /* ParameterSettingsCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -115,7 +120,12 @@
 		0694271B2AFA731C00D23EBF /* MVPTest_NFC_Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVPTest_NFC_Test.swift; sourceTree = "<group>"; };
 		0694271D2AFA7CE700D23EBF /* MVPTests_AuthentificationEmail_Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVPTests_AuthentificationEmail_Test.swift; sourceTree = "<group>"; };
 		06980BCE2AFA935E00EB94FA /* MVPTests_UserManager_Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVPTests_UserManager_Test.swift; sourceTree = "<group>"; };
+		06980BD02AFAA29300EB94FA /* TabbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarView.swift; sourceTree = "<group>"; };
+		06980BD22AFAA61A00EB94FA /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		06980BD52AFAA63900EB94FA /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		069935B72AFB7DA400462FA8 /* CommunicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunicationView.swift; sourceTree = "<group>"; };
 		06D5AF9F2AF51DA500F7A4DF /* SignInApple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInApple.swift; sourceTree = "<group>"; };
+		06F6BF792AFBE1A600917B27 /* ParameterSettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParameterSettingsCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -205,6 +215,7 @@
 				0683D2392ADFE71000865382 /* Utils.swift */,
 				0683D23B2ADFE73400865382 /* Button.swift */,
 				067B62DA2AEA8E5800B032F3 /* LoadingView.swift */,
+				06F6BF792AFBE1A600917B27 /* ParameterSettingsCell.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -221,12 +232,12 @@
 		0683D2242ADFE22F00865382 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				069935B62AFB7D2700462FA8 /* Communication */,
+				06980BD42AFAA61F00EB94FA /* Settings */,
 				067F880E2AE9524C00965A0B /* Authentification */,
-				0683D2252ADFE25100865382 /* ScanNFCView.swift */,
 				0683D22B2ADFE3E800865382 /* PDFKitView.swift */,
 				0683D2372ADFE66A00865382 /* TicketCell.swift */,
 				0683D24A2ADFF58200865382 /* TicketView.swift */,
-				067D88492AE2B7DC009A1025 /* ScanQRcodeView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -258,6 +269,7 @@
 				0687493F2AD9399800ACD45E /* MVPApp.swift */,
 				068749412AD9399800ACD45E /* ContentView.swift */,
 				0683D2332ADFE4D000865382 /* ViewModel.swift */,
+				06980BD02AFAA29300EB94FA /* TabbarView.swift */,
 				0683D2242ADFE22F00865382 /* View */,
 				068214102AE2CB4800A3123B /* Service */,
 				0683D2232ADFE22200865382 /* Model */,
@@ -298,6 +310,25 @@
 				0687495D2AD9399E00ACD45E /* MVPUITestsLaunchTests.swift */,
 			);
 			path = MVPUITests;
+			sourceTree = "<group>";
+		};
+		06980BD42AFAA61F00EB94FA /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				06980BD22AFAA61A00EB94FA /* Settings.swift */,
+				06980BD52AFAA63900EB94FA /* SettingsViewModel.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		069935B62AFB7D2700462FA8 /* Communication */ = {
+			isa = PBXGroup;
+			children = (
+				067D88492AE2B7DC009A1025 /* ScanQRcodeView.swift */,
+				0683D2252ADFE25100865382 /* ScanNFCView.swift */,
+				069935B72AFB7DA400462FA8 /* CommunicationView.swift */,
+			);
+			path = Communication;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -461,16 +492,20 @@
 				0683D2382ADFE66A00865382 /* TicketCell.swift in Sources */,
 				067B62DD2AEA941600B032F3 /* AuthentificationModelView.swift in Sources */,
 				068749422AD9399800ACD45E /* ContentView.swift in Sources */,
+				06F6BF7A2AFBE1A600917B27 /* ParameterSettingsCell.swift in Sources */,
 				068749402AD9399800ACD45E /* MVPApp.swift in Sources */,
 				067B62DB2AEA8E5800B032F3 /* LoadingView.swift in Sources */,
 				065CF5D22AEC0D2D003F4C24 /* UserManager.swift in Sources */,
 				0683D2322ADFE48A00865382 /* Repository.swift in Sources */,
 				0683D22C2ADFE3E800865382 /* PDFKitView.swift in Sources */,
 				067F880D2AE93A2600965A0B /* CommunicationProtocol.swift in Sources */,
+				06980BD12AFAA29300EB94FA /* TabbarView.swift in Sources */,
 				0683D2262ADFE25100865382 /* ScanNFCView.swift in Sources */,
 				0683D2362ADFE50700865382 /* Ticket.swift in Sources */,
+				06980BD62AFAA63900EB94FA /* SettingsViewModel.swift in Sources */,
 				062D8CAF2AEA805100A2ECBA /* AuthentificationService.swift in Sources */,
 				067D884A2AE2B7DC009A1025 /* ScanQRcodeView.swift in Sources */,
+				069935B82AFB7DA400462FA8 /* CommunicationView.swift in Sources */,
 				062D8CAD2AEA7AF000A2ECBA /* AuthentificationView.swift in Sources */,
 				0683D2302ADFE42900865382 /* Error.swift in Sources */,
 				0683D24B2ADFF58200865382 /* TicketView.swift in Sources */,
@@ -478,6 +513,7 @@
 				0683D22E2ADFE41A00865382 /* Color.swift in Sources */,
 				0683D23C2ADFE73400865382 /* Button.swift in Sources */,
 				0679FBAF2AE6BD380001D5A8 /* QRcodeScan.swift in Sources */,
+				06980BD32AFAA61A00EB94FA /* Settings.swift in Sources */,
 				062D8CB12AEA808E00A2ECBA /* UserModel.swift in Sources */,
 				0683D23A2ADFE71000865382 /* Utils.swift in Sources */,
 			);
