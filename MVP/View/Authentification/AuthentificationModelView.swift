@@ -8,7 +8,7 @@
 import Foundation
 
 
-@MainActor
+
 final class AuthentificationModelView: ObservableObject {
     @Published var authentificationService = AuthentificationService()
     @Published var usermanager = UserManager()
@@ -68,7 +68,7 @@ final class AuthentificationModelView: ObservableObject {
     
     func deleteAccount() async throws {
         try await authentificationService.delete()
-        }
+    }
     
     @MainActor
     func signInWithGoogle() async throws {
