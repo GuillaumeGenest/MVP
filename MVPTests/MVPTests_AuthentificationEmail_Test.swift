@@ -50,9 +50,13 @@ final class MVPTests_Authentification_Test: XCTestCase {
         let validEmail = "test@example.com"
         let validConfirmationEmail = "test@example.com"
         
+        guard let vm = vm else {
+            XCTFail("AuthentificationModelView non initialisée correctement.")
+            return
+        }
         Task {
             do {
-                try vm!.isValidEmail(validEmail, confirmationEmail: validConfirmationEmail)
+                try vm.isValidEmail(validEmail, confirmationEmail: validConfirmationEmail)
             } catch {
                 XCTFail("La validation d'e-mail a généré une erreur inattendue : \(error)")
             }
@@ -74,42 +78,110 @@ final class MVPTests_Authentification_Test: XCTestCase {
         }
     }
     
-
-    
-
-    
-    
-    func test_AuthentificationModelView_SignUpWithEmail_UserIsLoggedIn() {
+    func test_AuthentificationModelView_SignUpWithEmail_UserIsLoggedIn_SucessAuthentificationCreateUser() {
         
         guard let authentificationService = authentificationService else {
             XCTFail("AuthentificationService non initialisée correctement.")
             return
         }
-        
-        
-        
         Task {
             do {
                 let result = try await authentificationService.createUser(email: testUserEmail, password: testUserPassword)
-                
-                // Effectuez ici des assertions pour vérifier si la création de l'utilisateur est réussie
+                try await authentificationService.delete()
                 XCTAssertNotNil(result.email)
                 XCTAssertEqual(result.email, testUserEmail, "L'email n'est pas identique")
                 XCTAssertNotNil(result.uid)
-                
-                // Supprimez le compte utilisateur après les assertions
-                try await authentificationService.delete()
             } catch {
                 XCTFail("La création de l'utilisateur a échoué : \(error)")
             }
         }
     }
-
-
-
     
-    func test_AuthentificationModelView_SignInWithEmail_UserIsLoggedIn() {
-        
+    func test_AuthentificationModelView_SignUpWithEmail_NoEmail_ReturnNoEmailorPassword() {
+        let noEmail = ""
+        let noPassword = ""
+
+        guard let vm = vm else {
+            XCTFail("AuthentificationModelView non initialisée correctement.")
+            return
+        }
+        Task {
+            do {
+                try await vm.signUpWithEmail(email: noEmail, password: noPassword, name: "Nathan")
+                XCTFail("L'appel n'a pas généré d'erreur comme prévu.")
+            } catch {
+                // Vérifiez manuellement si l'erreur est celle que vous attendez
+                if let authError = error as? AuthentificationError {
+                    XCTAssertEqual(authError, AuthentificationError.NoEmailorPassword, "Erreur spécifique attendue : AuthentificationError.NoEmailorPassword")
+                } else {
+                    XCTFail("Erreur inattendue : \(error)")
+                }
+            }
+        }
     }
 
+    func test_AuthentificationModelView_SignInWithEmail_UserIsLoggedIn_ReturnNoEmailorPassword() {
+        let noEmail = ""
+        let noPassword = ""
+
+        guard let vm = vm else {
+            XCTFail("AuthentificationModelView non initialisée correctement.")
+            return
+        }
+        Task {
+            do {
+                try await vm.signInWithEmail(email: noEmail, password: noPassword)
+                XCTFail("L'appel n'a pas généré d'erreur comme prévu.")
+            } catch {
+                // Vérifiez manuellement si l'erreur est celle que vous attendez
+                if let authError = error as? AuthentificationError {
+                    XCTAssertEqual(authError, AuthentificationError.NoEmailorPassword, "Erreur spécifique attendue : AuthentificationError.NoEmailorPassword")
+                } else {
+                    XCTFail("Erreur inattendue : \(error)")
+                }
+            }
+        }
+    }
+    
+    func test_AuthentificationModelView_SignInWithEmail_UserIsLoggedIn_ReturnSucess() {
+        let noEmail = ""
+        let noPassword = ""
+
+        guard let vm = vm else {
+            XCTFail("AuthentificationModelView non initialisée correctement.")
+            return
+        }
+        guard let authentificationService = authentificationService else {
+            XCTFail("AuthentificationService non initialisée correctement.")
+            return
+        }
+        
+        Task {
+            do {
+                let result = try await authentificationService.createUser(email: testUserEmail, password: testUserPassword)
+                try vm.signOut()
+                try await vm.signInWithEmail(email: testUserEmail, password: testUserPassword)
+                try await authentificationService.delete()
+            } catch {
+                XCTFail("Le login de l'utilisateur a échoué : \(error)")
+            }
+        }
+    }
+    
+    
+    
+    
+    func test_AuthentificationModelView_setError_ReturnCorrectError(){
+        let testError = AuthentificationError.UserIsNotConnected
+        
+        guard let vm = vm else {
+            XCTFail("AuthentificationModelView non initialisée correctement.")
+            return
+        }
+        Task {
+            await vm.setError(testError)
+            XCTAssertEqual(vm.StatusMessage, testError.localizedDescription)
+            XCTAssertTrue(vm.DisplayErrorMessage)
+        }
+    }
 }
