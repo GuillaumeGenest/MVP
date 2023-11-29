@@ -11,31 +11,29 @@ struct TabbarView: View {
     @Binding var showSignInView: Bool
     
     var body: some View {
-        TabView {
-            NavigationStack {
-                ContentView()
-            }
-            .tabItem {
-                Image(systemName: "list.bullet")
-                Text("Tickets")
-            }
-            
-            NavigationStack {
+        VStack {
+            TabView {
+                    ContentView()
+                .tabItem {
+                    Image(systemName: "list.bullet")
+                    Text("Tickets")
+                }
+                
+                
                 CommunicationView()
-            }
-            .tabItem {
-                Image(systemName: "plus")
-                Text("Communication")
-            }
-            
-            NavigationStack {
-                Settings(showSignInView: $showSignInView)
-            }
-            .tabItem {
-                Image(systemName: "person")
-                Text("Profile")
-            }
-        }.background(Color.cellcolor)
+                    .tabItem {
+                        Image(systemName: "plus")
+                        Text("Communication")
+                    }
+                
+                    Settings(showSignInView: $showSignInView)
+                
+                .tabItem {
+                    Image(systemName: "person")
+                    Text("Profile")
+                }
+            }.background(Color.black.opacity(0.3))
+        }
     }
 }
 

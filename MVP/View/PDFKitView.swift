@@ -18,6 +18,7 @@ struct PDFKitView: UIViewRepresentable {
             if let document = PDFDocument(url: self.url) {
                 DispatchQueue.main.async {
                     pdfView.document = document
+                    pdfView.autoScales = true
                 }
             }
         }
