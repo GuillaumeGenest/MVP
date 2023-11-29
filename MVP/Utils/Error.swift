@@ -51,16 +51,25 @@ enum FirebaseDatabaseError: Error, LocalizedError {
 
 enum StorageDatabaseError: Error, LocalizedError {
     case downloadDatafromStorageFailed
-    case saveImagedateFailed
+    case savePDFDataFailed
     case getURLError
+    case errorDataOctet
+    case PDFCreationFailed
+    case ImageDataError
     var errorDescription: String? {
         switch self {
         case .downloadDatafromStorageFailed:
             return "Erreur dans le téléchargement des données depuis Firebase Storage"
-        case .saveImagedateFailed:
-            return "Erreur metada lors de la sauvegarde de l'image"
+        case .savePDFDataFailed:
+            return "Erreur metada lors de la sauvegarde du PDF"
         case .getURLError:
             return "Impossible de retourner l'url"
+        case .errorDataOctet:
+            return "Erreur dans le nombre d'octet, qui est de 0"
+        case .PDFCreationFailed:
+            return "Erreur lors de la création du PDF"
+        case .ImageDataError:
+            return "La création de l'image a rencontré une erreur"
         }
     }
 }
