@@ -29,7 +29,7 @@ class CameraModelView: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate
     
     
 
-    private var sessionQueue: DispatchQueue!
+     var sessionQueue: DispatchQueue!
     
     override init() {
         super.init()
@@ -41,90 +41,90 @@ class CameraModelView: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate
     }
     
     
-    private func checkAuthorization() async -> Bool {
-        switch AVCaptureDevice.authorizationStatus(for: .video) {
-        case .authorized:
-            print("Camera access authorized.")
-            return true
-        case .notDetermined:
-            print("Camera access not determined.")
-            sessionQueue.suspend()
-            let status = await AVCaptureDevice.requestAccess(for: .video)
-            sessionQueue.resume()
-            return status
-        case .denied:
-            print("Camera access denied.")
-            return false
-        case .restricted:
-            print("Camera library access restricted.")
-            return false
-        @unknown default:
-            return false
-        }
-    }
-    
-    
-    
-    func start() async {
-        let authorized = await checkAuthorization()
-        guard authorized else {
-            print("Camera access was not authorized.")
-            return
-        }
-        
-        
-        sessionQueue.async { [self] in
-            self.configureCaptureSession { success in
-                guard success else { return }
-                self.session.startRunning()
-            }
-        }
-    }
-    
-    
-    private func configureCaptureSession(completionHandler: (_ success: Bool) -> Void) {
-        
-        var success = false
-        
-        self.session.beginConfiguration()
-        
-        defer {
-            self.session.commitConfiguration()
-            completionHandler(success)
-        }
-        guard let device = AVCaptureDevice.default(.builtInUltraWideCamera, for: .video, position: .back) else {
-            print("Error: No camera device found.")
-            return
-        }
-
-        do {
-               let input = try AVCaptureDeviceInput(device: device)
-               if session.canAddInput(input) {
-                   session.addInput(input)
-               } else {
-                   print("Error: Cannot add input.")
-                   return
-               }
-           } catch {
-               print("Error setting up camera input: \(error.localizedDescription)")
-               return
-           }
-           if session.canAddOutput(output) {
-               session.addOutput(output)
-           } else {
-               print("Error: Cannot add output.")
-               return
-           }
-
-        session.beginConfiguration()
-        session.addOutput(output)
-        session.commitConfiguration()
-
-
-//        isCaptureSessionConfigured = true
-        
-        success = true
-    }
+//    private func checkAuthorization() async -> Bool {
+//        switch AVCaptureDevice.authorizationStatus(for: .video) {
+//        case .authorized:
+//            print("Camera access authorized.")
+//            return true
+//        case .notDetermined:
+//            print("Camera access not determined.")
+//            sessionQueue.suspend()
+//            let status = await AVCaptureDevice.requestAccess(for: .video)
+//            sessionQueue.resume()
+//            return status
+//        case .denied:
+//            print("Camera access denied.")
+//            return false
+//        case .restricted:
+//            print("Camera library access restricted.")
+//            return false
+//        @unknown default:
+//            return false
+//        }
+//    }
+//
+//
+//
+//    func start() async {
+//        let authorized = await checkAuthorization()
+//        guard authorized else {
+//            print("Camera access was not authorized.")
+//            return
+//        }
+//
+//
+//        sessionQueue.async { [self] in
+//            self.configureCaptureSession { success in
+//                guard success else { return }
+//                self.session.startRunning()
+//            }
+//        }
+//    }
+//
+//
+//    private func configureCaptureSession(completionHandler: (_ success: Bool) -> Void) {
+//
+//        var success = false
+//
+//        self.session.beginConfiguration()
+//
+//        defer {
+//            self.session.commitConfiguration()
+//            completionHandler(success)
+//        }
+//        guard let device = AVCaptureDevice.default(.builtInUltraWideCamera, for: .video, position: .back) else {
+//            print("Error: No camera device found.")
+//            return
+//        }
+//
+//        do {
+//               let input = try AVCaptureDeviceInput(device: device)
+//               if session.canAddInput(input) {
+//                   session.addInput(input)
+//               } else {
+//                   print("Error: Cannot add input.")
+//                   return
+//               }
+//           } catch {
+//               print("Error setting up camera input: \(error.localizedDescription)")
+//               return
+//           }
+//           if session.canAddOutput(output) {
+//               session.addOutput(output)
+//           } else {
+//               print("Error: Cannot add output.")
+//               return
+//           }
+//
+//        session.beginConfiguration()
+//        session.addOutput(output)
+//        session.commitConfiguration()
+//
+//
+////        isCaptureSessionConfigured = true
+//
+//        success = true
+//    }
     
     
     

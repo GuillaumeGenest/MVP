@@ -56,6 +56,7 @@
 		0694271E2AFA7CE700D23EBF /* MVPTests_AuthentificationEmail_Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0694271D2AFA7CE700D23EBF /* MVPTests_AuthentificationEmail_Test.swift */; };
 		069427202AFA7E7500D23EBF /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 0694271F2AFA7E7500D23EBF /* GoogleSignIn */; };
 		069740F92B0CA76500250059 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 069740F82B0CA76500250059 /* StorageManager.swift */; };
+		069740FB2B17EF8E00250059 /* MVPTest_Camera_Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 069740FA2B17EF8E00250059 /* MVPTest_Camera_Test.swift */; };
 		0697416E2B0521C7009A2206 /* ScanTicketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0697416D2B0521C6009A2206 /* ScanTicketView.swift */; };
 		06980BCF2AFA935E00EB94FA /* MVPTests_UserManager_Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06980BCE2AFA935E00EB94FA /* MVPTests_UserManager_Test.swift */; };
 		06980BD12AFAA29300EB94FA /* TabbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06980BD02AFAA29300EB94FA /* TabbarView.swift */; };
@@ -123,6 +124,7 @@
 		0694271B2AFA731C00D23EBF /* MVPTest_NFC_Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVPTest_NFC_Test.swift; sourceTree = "<group>"; };
 		0694271D2AFA7CE700D23EBF /* MVPTests_AuthentificationEmail_Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVPTests_AuthentificationEmail_Test.swift; sourceTree = "<group>"; };
 		069740F82B0CA76500250059 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
+		069740FA2B17EF8E00250059 /* MVPTest_Camera_Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVPTest_Camera_Test.swift; sourceTree = "<group>"; };
 		0697416D2B0521C6009A2206 /* ScanTicketView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanTicketView.swift; sourceTree = "<group>"; };
 		06980BCE2AFA935E00EB94FA /* MVPTests_UserManager_Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVPTests_UserManager_Test.swift; sourceTree = "<group>"; };
 		06980BD02AFAA29300EB94FA /* TabbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarView.swift; sourceTree = "<group>"; };
@@ -306,6 +308,7 @@
 				0694271B2AFA731C00D23EBF /* MVPTest_NFC_Test.swift */,
 				0694271D2AFA7CE700D23EBF /* MVPTests_AuthentificationEmail_Test.swift */,
 				06980BCE2AFA935E00EB94FA /* MVPTests_UserManager_Test.swift */,
+				069740FA2B17EF8E00250059 /* MVPTest_Camera_Test.swift */,
 			);
 			path = MVPTests;
 			sourceTree = "<group>";
@@ -544,6 +547,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				06980BCF2AFA935E00EB94FA /* MVPTests_UserManager_Test.swift in Sources */,
+				069740FB2B17EF8E00250059 /* MVPTest_Camera_Test.swift in Sources */,
 				068749522AD9399E00ACD45E /* MVPTests.swift in Sources */,
 				0694271C2AFA731C00D23EBF /* MVPTest_NFC_Test.swift in Sources */,
 				0694271E2AFA7CE700D23EBF /* MVPTests_AuthentificationEmail_Test.swift in Sources */,
