@@ -20,6 +20,10 @@ class ViewModel: ObservableObject {
     @Published var DisplayErrorMessage: Bool = false
     @Published var isLoading: Bool = false
     
+    
+    @Published var isSuccess: Bool = false
+    
+    
     func fetchData() async {
         do {
             tickets = try await firebaserepository.fetchTickets()
@@ -31,6 +35,7 @@ class ViewModel: ObservableObject {
         do {
             try await firebaserepository.addTicket(ticket: ticket)
             tickets.append(ticket)
+            self.isSuccess = true
         }
         catch {
             throw error
