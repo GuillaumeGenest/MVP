@@ -6,7 +6,8 @@
 //
 
 import Foundation
-
+import UIKit
+import PDFKit
 
 
 class ViewModel: ObservableObject {
@@ -20,6 +21,10 @@ class ViewModel: ObservableObject {
     @Published var DisplayErrorMessage: Bool = false
     @Published var isLoading: Bool = false
     
+    
+    @Published var isSuccess: Bool = false
+    
+    
     func fetchData() async {
         do {
             tickets = try await firebaserepository.fetchTickets()
@@ -31,6 +36,7 @@ class ViewModel: ObservableObject {
         do {
             try await firebaserepository.addTicket(ticket: ticket)
             tickets.append(ticket)
+            self.isSuccess = true
         }
         catch {
             throw error
@@ -62,4 +68,22 @@ class ViewModel: ObservableObject {
         }
     }
     
+}
+
+
+extension ViewModel {
+    func regeneratePDFData(from capturedImage: UIImage) throws -> Data {
+        let pdfDocument = PDFDocument()
+
+        guard let pdfPage = PDFPage(image: capturedImage) else {
+            throw StorageDatabaseError.PDFCreationFailed
+        }
+
+        pdfDocument.insert(pdfPage, at: pdfDocument.pageCount)
+
+        guard let pdfData = pdfDocument.dataRepresentation() else {
+            throw StorageDatabaseError.PDFCreationFailed
+        }
+        return pdfData
+    }
 }

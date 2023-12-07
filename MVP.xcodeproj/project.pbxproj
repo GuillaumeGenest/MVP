@@ -65,7 +65,9 @@
 		069935B82AFB7DA400462FA8 /* CommunicationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 069935B72AFB7DA400462FA8 /* CommunicationView.swift */; };
 		06C6F69A2B04D93D00CA656C /* CameraModelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C6F6992B04D93C00CA656C /* CameraModelView.swift */; };
 		06D5AFA02AF51DA500F7A4DF /* SignInApple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D5AF9F2AF51DA500F7A4DF /* SignInApple.swift */; };
+		06F2BA512B190AFB00A1CE9E /* Banner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F2BA502B190AFB00A1CE9E /* Banner.swift */; };
 		06F6BF7A2AFBE1A600917B27 /* ParameterSettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F6BF792AFBE1A600917B27 /* ParameterSettingsCell.swift */; };
+		06FE20052B2066F800846941 /* ScanDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06FE20042B2066F800846941 /* ScanDocument.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -133,7 +135,9 @@
 		069935B72AFB7DA400462FA8 /* CommunicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunicationView.swift; sourceTree = "<group>"; };
 		06C6F6992B04D93C00CA656C /* CameraModelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraModelView.swift; sourceTree = "<group>"; };
 		06D5AF9F2AF51DA500F7A4DF /* SignInApple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInApple.swift; sourceTree = "<group>"; };
+		06F2BA502B190AFB00A1CE9E /* Banner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Banner.swift; sourceTree = "<group>"; };
 		06F6BF792AFBE1A600917B27 /* ParameterSettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParameterSettingsCell.swift; sourceTree = "<group>"; };
+		06FE20042B2066F800846941 /* ScanDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanDocument.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -201,6 +205,7 @@
 				0679FBAE2AE6BD380001D5A8 /* QRcodeScan.swift */,
 				067F880C2AE93A2600965A0B /* CommunicationProtocol.swift */,
 				06C6F6992B04D93C00CA656C /* CameraModelView.swift */,
+				06FE20042B2066F800846941 /* ScanDocument.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -225,6 +230,7 @@
 				0683D23B2ADFE73400865382 /* Button.swift */,
 				067B62DA2AEA8E5800B032F3 /* LoadingView.swift */,
 				06F6BF792AFBE1A600917B27 /* ParameterSettingsCell.swift */,
+				06F2BA502B190AFB00A1CE9E /* Banner.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -508,11 +514,13 @@
 			files = (
 				06D5AFA02AF51DA500F7A4DF /* SignInApple.swift in Sources */,
 				0683D2282ADFE29600865382 /* NFCReader.swift in Sources */,
+				06F2BA512B190AFB00A1CE9E /* Banner.swift in Sources */,
 				0683D2342ADFE4D000865382 /* ViewModel.swift in Sources */,
 				0683D2382ADFE66A00865382 /* TicketCell.swift in Sources */,
 				067B62DD2AEA941600B032F3 /* AuthentificationModelView.swift in Sources */,
 				068749422AD9399800ACD45E /* ContentView.swift in Sources */,
 				06F6BF7A2AFBE1A600917B27 /* ParameterSettingsCell.swift in Sources */,
+				06FE20052B2066F800846941 /* ScanDocument.swift in Sources */,
 				068749402AD9399800ACD45E /* MVPApp.swift in Sources */,
 				067B62DB2AEA8E5800B032F3 /* LoadingView.swift in Sources */,
 				065CF5D22AEC0D2D003F4C24 /* UserManager.swift in Sources */,
@@ -693,6 +701,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = MVP/MVP.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -738,6 +747,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = MVP/MVP.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;

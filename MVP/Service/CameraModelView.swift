@@ -207,18 +207,7 @@ class CameraModelView: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate
         showAlert.toggle()
     }
 
-    func regeneratePDFData(from inputData: Data) throws -> Data {
-        guard let image = UIImage(data: inputData) else {
-            throw StorageDatabaseError.ImageDataError
-        }
-        let pdfDocument = PDFDocument()
-        if let pdfPage = PDFPage(image: image) {
-            pdfDocument.insert(pdfPage, at: pdfDocument.pageCount)
-        } else {
-            throw StorageDatabaseError.PDFCreationFailed
-        }
-        return pdfDocument.dataRepresentation() ?? Data()
-    }
+
     
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
                

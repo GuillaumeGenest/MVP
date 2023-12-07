@@ -13,98 +13,74 @@ struct ScanTicketView: View {
     @StateObject var camera = CameraModelView()
     @ObservedObject var vm: ViewModel
 
-    
+    @State private var capturedImage: UIImage?
     @State var date = Date()
     
     var body: some View {
         VStack {
-        ZStack {
-            Color.black
-        
-                GeometryReader { proxy in
-                    let size = proxy.size
-                    ZStack {
-                        CameraPreview(camera: camera, frameSize: size)
-                            .ignoresSafeArea(.all, edges: .all)
-                        VStack {
-                            Spacer()
-                            HStack {
-                                if camera.previewphoto {
-                                    Button {
-                                        AddTicket()
-                                    } label: {
-                                        Text("Sauvegarder")
-                                            .foregroundColor(.black)
-                                            .fontWeight(.semibold)
-                                            .padding(.vertical, 10)
-                                            .padding(.horizontal, 20)
-                                            .background(Color.white)
-                                            .clipShape(Capsule())
-                                    }
-                                } else {
-                                    Button {
-                                        camera.takePhoto()
-                                    } label: {
-                                        ZStack {
-                                            Circle()
-                                                .strokeBorder(.white, lineWidth: 3)
-                                                .frame(width: 72, height: 72)
-                                            Circle()
-                                                .fill(.white)
-                                                .frame(width: 60, height: 60)
-                                        }
-                                    }
-                                }
-                            }
-                        }.padding(.bottom, 30)
+            if let capturedImage = capturedImage {
+                ZStack {
+                    Color.black
+                    Image(uiImage: capturedImage)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    
+                    VStack {
+                        Spacer()
+                        HStack {
+                            Button {
+                                AddTicket()
+                            } label: {
+                                Text("Sauvegarder")
+                                    .foregroundColor(Color.white)
+                                    .fontWeight(.semibold)
+                                    .padding(.vertical, 10)
+                                    .padding(.horizontal, 20)
+                                    .background(Color.bleu_empire)
+                                    .clipShape(Capsule())
+                            }.padding(.bottom, 20)
+                        }
                     }
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-        }
-        .alert(isPresented: $vm.DisplayErrorMessage) {
-            return Alert(title: Text("IMTY0"), message: Text(vm.StatusMessage)
-                .foregroundColor(.red),
-                         dismissButton: .cancel(Text("Annuler"))
-            )
-        }
-       
-        .overlay(
+            } else {
+                DocumentScannerView(scannedImage: $capturedImage)
+            }
+        }.overlay(
             Group {
-                if camera.previewphoto {
+                if capturedImage != nil {
                     HeaderButton(action: {
-                        camera.retakePhoto()
+                        capturedImage = nil
                     }, nameIcon: "xmark")
                 }
             }.padding(.all,15), alignment: .topLeading)
-        }.overlay(LoadingView(show: $vm.isLoading))
-        .onAppear(perform: camera.checkCameraPermission)
+        .overlay(LoadingView(show: $vm.isLoading))
     }
-    
     
     private func AddTicket() {
-        Task {
-            do {
-                vm.isLoading = true
-                guard !camera.dataImage.isEmpty else {
+            Task {
+                do {
+                    vm.isLoading = true
+//                    guard !camera.dataImage.isEmpty else {
+//                        vm.isLoading = false
+//                        vm.StatusMessage = camera.message
+//                        vm.DisplayErrorMessage = true
+//                        return
+//                    }
+                    let id = UUID()
+                    let regeneratedPDFData = try vm.regeneratePDFData(from: capturedImage!)
+                    let url = try await vm.saveDataToPDF(TicketId: id.uuidString, ticketvalue: regeneratedPDFData)
+                    let NewTicket = Ticket(id: id, date: self.date, urlPDF: URL(string: url)!)
+                    try await vm.addTickets(ticket: NewTicket)
+    
+                    capturedImage = nil
                     vm.isLoading = false
-                    vm.StatusMessage = camera.message
-                    vm.DisplayErrorMessage = true
-                    return
+                } catch {
+                    vm.isLoading = false
+                    await vm.setError(error)
                 }
-                let id = UUID()
-                let regeneratedPDFData = try camera.regeneratePDFData(from: camera.dataImage)
-                let url = try await vm.saveDataToPDF(TicketId: id.uuidString, ticketvalue: regeneratedPDFData)
-                let NewTicket = Ticket(id: id, date: self.date, urlPDF: URL(string: url)!)
-                try await vm.addTickets(ticket: NewTicket)
-
-                camera.retakePhoto()
-                vm.isLoading = false
-            } catch {
-                vm.isLoading = false
-                await vm.setError(error)
             }
         }
-    }
 }
 
 
@@ -137,3 +113,4 @@ struct CameraPreview: UIViewRepresentable {
         
     }   
 }
+

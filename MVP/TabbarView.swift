@@ -10,24 +10,28 @@ import SwiftUI
 struct TabbarView: View {
     @Binding var showSignInView: Bool
     
+    
+    @State private var selection = 0
     var body: some View {
         VStack {
-            TabView {
+            TabView(selection: $selection){
                     ContentView()
+                    .tag(0)
                 .tabItem {
                     Image(systemName: "list.bullet")
                     Text("Tickets")
                 }
                 
                 
-                CommunicationView()
+                CommunicationView(tabBar: $selection)
+                    .tag(1)
                     .tabItem {
                         Image(systemName: "plus")
                         Text("Communication")
                     }
                 
                     Settings(showSignInView: $showSignInView)
-                
+                    .tag(2)
                 .tabItem {
                     Image(systemName: "person")
                     Text("Profile")
