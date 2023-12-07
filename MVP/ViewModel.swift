@@ -6,7 +6,8 @@
 //
 
 import Foundation
-
+import UIKit
+import PDFKit
 
 
 class ViewModel: ObservableObject {
@@ -67,4 +68,22 @@ class ViewModel: ObservableObject {
         }
     }
     
+}
+
+
+extension ViewModel {
+    func regeneratePDFData(from capturedImage: UIImage) throws -> Data {
+        let pdfDocument = PDFDocument()
+
+        guard let pdfPage = PDFPage(image: capturedImage) else {
+            throw StorageDatabaseError.PDFCreationFailed
+        }
+
+        pdfDocument.insert(pdfPage, at: pdfDocument.pageCount)
+
+        guard let pdfData = pdfDocument.dataRepresentation() else {
+            throw StorageDatabaseError.PDFCreationFailed
+        }
+        return pdfData
+    }
 }

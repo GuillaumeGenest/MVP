@@ -66,6 +66,7 @@
 		06D5AFA02AF51DA500F7A4DF /* SignInApple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D5AF9F2AF51DA500F7A4DF /* SignInApple.swift */; };
 		06F2BA512B190AFB00A1CE9E /* Banner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F2BA502B190AFB00A1CE9E /* Banner.swift */; };
 		06F6BF7A2AFBE1A600917B27 /* ParameterSettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F6BF792AFBE1A600917B27 /* ParameterSettingsCell.swift */; };
+		06FE20052B2066F800846941 /* ScanDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06FE20042B2066F800846941 /* ScanDocument.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -134,6 +135,7 @@
 		06D5AF9F2AF51DA500F7A4DF /* SignInApple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInApple.swift; sourceTree = "<group>"; };
 		06F2BA502B190AFB00A1CE9E /* Banner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Banner.swift; sourceTree = "<group>"; };
 		06F6BF792AFBE1A600917B27 /* ParameterSettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParameterSettingsCell.swift; sourceTree = "<group>"; };
+		06FE20042B2066F800846941 /* ScanDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanDocument.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -201,6 +203,7 @@
 				0679FBAE2AE6BD380001D5A8 /* QRcodeScan.swift */,
 				067F880C2AE93A2600965A0B /* CommunicationProtocol.swift */,
 				06C6F6992B04D93C00CA656C /* CameraModelView.swift */,
+				06FE20042B2066F800846941 /* ScanDocument.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -514,6 +517,7 @@
 				067B62DD2AEA941600B032F3 /* AuthentificationModelView.swift in Sources */,
 				068749422AD9399800ACD45E /* ContentView.swift in Sources */,
 				06F6BF7A2AFBE1A600917B27 /* ParameterSettingsCell.swift in Sources */,
+				06FE20052B2066F800846941 /* ScanDocument.swift in Sources */,
 				068749402AD9399800ACD45E /* MVPApp.swift in Sources */,
 				067B62DB2AEA8E5800B032F3 /* LoadingView.swift in Sources */,
 				065CF5D22AEC0D2D003F4C24 /* UserManager.swift in Sources */,
