@@ -24,6 +24,7 @@ struct ContentView: View {
                     ScrollView {
                         ForEach(viewModel.tickets){content in
                             TicketCell(ticket: content)
+                                .environmentObject(viewModel)
                         }
                     }.refreshable {
                         Task{

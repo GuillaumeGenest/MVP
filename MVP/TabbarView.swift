@@ -21,8 +21,6 @@ struct TabbarView: View {
                     Image(systemName: "list.bullet")
                     Text("Tickets")
                 }
-                
-                
                 CommunicationView(tabBar: $selection)
                     .tag(1)
                     .tabItem {

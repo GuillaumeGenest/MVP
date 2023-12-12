@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct TicketCell: View {
+    @EnvironmentObject var viewmodel : ViewModel
     @ObservedObject var ticket: Ticket
     @Environment(\.colorScheme) var colorScheme
     var body: some View {
@@ -15,7 +16,7 @@ struct TicketCell: View {
         
         NavigationLink(
             destination:
-                TicketView(ticket: ticket),
+                TicketView(viewmodel: viewmodel, ticket: ticket),
             label: {
                 ZStack {
                     RoundedRectangle(cornerRadius: 16,

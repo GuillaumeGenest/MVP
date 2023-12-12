@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import PDFKit
+import SwiftUI
 
 
 class ViewModel: ObservableObject {
@@ -44,18 +45,16 @@ class ViewModel: ObservableObject {
     }
     
     
-    func saveDataToPDF(TicketId: String, ticketvalue: Data) async throws -> String {
-        //let forldpath = "\(TicketId)"
+    func deleteTickets(ticket: Ticket) async throws {
         do {
-            let (path, _) = try await storageManager.savePDF(data: ticketvalue, folderpath: TicketId)
-            let url = try await storageManager.getUrlForPDF(path: path)
-            let urlString = url.absoluteString
-            return urlString
+            
         }
         catch {
             throw error
         }
     }
+    
+   
     
     
     
@@ -85,5 +84,23 @@ extension ViewModel {
             throw StorageDatabaseError.PDFCreationFailed
         }
         return pdfData
+    }
+    
+    func saveDataToPDF(TicketId: String, ticketvalue: Data) async throws -> String {
+        //let forldpath = "\(TicketId)"
+        do {
+            let (path, _) = try await storageManager.savePDF(data: ticketvalue, folderpath: TicketId)
+            let url = try await storageManager.getUrlForPDF(path: path)
+            let urlString = url.absoluteString
+            return urlString
+        }
+        catch {
+            throw error
+        }
+    }
+    
+    
+    func SharePdf(url: URL){
+        
     }
 }

@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import PDFKit
 
 
 class Ticket: Identifiable, ObservableObject, Equatable ,Codable {
@@ -49,3 +50,52 @@ class Ticket: Identifiable, ObservableObject, Equatable ,Codable {
 let previewTicket = [Ticket(date: Date(), urlPDF: URL(string: "https://firebasestorage.googleapis.com/v0/b/mvp-ticket.appspot.com/o/Devis_20230921.pdf?alt=media&token=d73114df-166d-4635-8e2d-18781cad62a3&_gl=1*f0iv7e*_ga*ODk0NzAwMjcyLjE2OTc0NDc1NjQ.*_ga_CW55HF8NVT*MTY5NzYyNzI1OS4xMS4xLjE2OTc2Mjc4OTYuMzUuMC4w")!),
     Ticket(date: Date(timeIntervalSinceNow: -24*60*60*8), urlPDF: URL(string: "https://firebasestorage.googleapis.com/v0/b/mvp-ticket.appspot.com/o/AnnexeA_20230921.pdf?alt=media&token=01cc8c5d-3a3e-477b-9679-ce94f773a2f6&_gl=1*1wsby9q*_ga*ODk0NzAwMjcyLjE2OTc0NDc1NjQ.*_ga_CW55HF8NVT*MTY5NzYyNzI1OS4xMS4xLjE2OTc2Mjc4OTQuMzcuMC4w")!)
 ]
+
+
+
+//struct PDFDocument: Identifiable {
+//    public static var transferRepresentation: some TransferRepresentation {
+//            DataRepresentation(contentType: .pdf) { pdf in
+//                pdf.dataRepresentation() ?? Data()
+//            } importing: { data in
+//                if let pdf = PDFDocument(data: data) {
+//                    return pdf
+//                } else {
+//                    return PDFDocument()
+//                }
+//            }
+//            DataRepresentation(exportedContentType: .pdf) { pdf in
+//                return pdf.dataRepresentation() ?? Data() }
+//            }
+//
+//        var id : UUID
+//        var document: PDFDocument
+//        var caption: String
+//        var description: String
+//}
+
+
+extension PDFDocument: Transferable {
+    public static var transferRepresentation: some TransferRepresentation {
+        DataRepresentation(contentType: .pdf) { pdf in
+                if let data = pdf.dataRepresentation() {
+                    return data
+                } else {
+                    return Data()
+                }
+            } importing: { data in
+                if let pdf = PDFDocument(data: data) {
+                    return pdf
+                } else {
+                    return PDFDocument()
+                }
+            }
+        DataRepresentation(exportedContentType: .pdf) { pdf in
+            if let data = pdf.dataRepresentation() {
+                return data
+            } else {
+                return Data()
+            }
+        }
+     }
+}
