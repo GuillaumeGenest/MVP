@@ -47,7 +47,10 @@ class ViewModel: ObservableObject {
     
     func deleteTickets(ticket: Ticket) async throws {
         do {
-            
+            try await firebaserepository.deleteTicket(ticket: ticket)
+            if let index = self.tickets.firstIndex(of: ticket) {
+                tickets.remove(at: index)
+            }
         }
         catch {
             throw error

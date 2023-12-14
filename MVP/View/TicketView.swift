@@ -38,10 +38,10 @@ struct TicketView: View {
                                        ShareLink(item: pdf, preview: SharePreview("\(ticket.id).pdf")){
                                          Label("Partager", systemImage: "square.and.arrow.up")
                                        }
-                                       
+                                    
                                        Button {
                                            Task {
-                                               try await  viewmodel.deleteTickets(ticket: self.ticket)
+                                               try await viewmodel.deleteTickets(ticket: self.ticket)
                                            }
                                        } label: {
                                            Label("Supprimer", systemImage: "trash")

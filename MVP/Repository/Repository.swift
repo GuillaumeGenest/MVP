@@ -32,7 +32,6 @@ class FirestoreManager: ObservableObject{
         }
     }
     
-    // Fonction asynchrone pour ajouter un ticket à Firestore avec un ID spécifique
     func addTicket(ticket: Ticket) async throws {
         do {
             let documentReference = ticketsCollection.document(ticket.id.uuidString)
@@ -40,6 +39,16 @@ class FirestoreManager: ObservableObject{
             try await documentReference.setData(ticketData)
         } catch {
             throw FirebaseDatabaseError.jsonEncodingFailed
+        }
+    }
+    
+    
+    func deleteTicket(ticket: Ticket) async throws {
+        do {
+            let documentReference = ticketsCollection.document(ticket.id.uuidString)
+            try await documentReference.delete()
+        } catch {
+            throw error
         }
     }
 }
