@@ -16,13 +16,42 @@ struct TicketView: View {
     @ObservedObject var ticket: Ticket
     @Environment(\.dismiss) private var dismiss
     
-    var pdf: PDFDocument {
-        return PDFDocument(url: ticket.urlPDF)!
-    }
+    @ObservedObject var business: Business
+    
+//    var pdf: PDFDocument {
+//        return PDFDocument(url: ticket.urlPDF)!
+//    }
     
     var body: some View {
         NavigationStack{
-            PDFKitView(url: ticket.urlPDF)
+            VStack{
+            VStack {
+                HStack {
+                    if let logoURL = URL(string: business.logo) {
+                        AsyncImage(url: logoURL) { phase in
+                            if let image = phase.image {
+                                image
+                                    .renderingMode(.original)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 70, height: 70)
+                                    .clipped()
+                                    .cornerRadius(15)
+                            }
+                        }
+                    }
+                    Text(business.name)
+                        .tracking(0.15)
+                        .font(.headline)
+                        .font(Font.custom("Inter-ExtraBold", size: 24))
+                    Spacer()
+                }.padding(.horizontal, 8)
+            }
+            VStack {
+                PDFKitView(url: ticket.urlPDF)
+                    
+            }.padding(.horizontal, 8)
+        }
                 .navigationBarBackButtonHidden(true)
                 .navigationBarTitle("Mon ticket", displayMode: .inline)
                 .navigationBarItems(
@@ -35,9 +64,9 @@ struct TicketView: View {
                                        } label: {
                                            Label("Modifier", systemImage: "pencil")
                                        }
-                                       ShareLink(item: pdf, preview: SharePreview("\(ticket.id).pdf")){
-                                         Label("Partager", systemImage: "square.and.arrow.up")
-                                       }
+//                                       ShareLink(item: PDFDocument(url: ticket.urlPDF)!, preview: SharePreview("\(ticket.id).pdf")){
+//                                         Label("Partager", systemImage: "square.and.arrow.up")
+//                                       }
                                     
                                        Button {
                                            Task {
@@ -68,6 +97,6 @@ struct TicketView: View {
 struct TicketView_Previews: PreviewProvider {
     static let vm = ViewModel()
     static var previews: some View {
-        TicketView(viewmodel: vm, ticket: previewTicket[0])
+        TicketView(viewmodel: vm, ticket: previewTicket[0], business: mockedbussiness[0])
     }
 }

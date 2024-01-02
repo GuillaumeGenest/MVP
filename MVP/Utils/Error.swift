@@ -19,6 +19,40 @@ enum Server: Error, LocalizedError {
 }
 
 
+enum TestDataFirestore: Error, LocalizedError {
+    case failedrecuperlistId
+    case failedrecuperticketInfo
+    case failedrecuperbusinessInfo
+    case ticketresponse
+    case emptyTicketIDs
+    case emptyTicketInfoArray
+    case emptyBusinessInfoArray
+    case invalidTicketIDs
+    
+    var errorDescription: String? {
+        switch self {
+        case .failedrecuperlistId:
+            return "Impossible de récuper les données"
+        case .failedrecuperticketInfo:
+            return "Impossible de récuper les info"
+        case .failedrecuperbusinessInfo:
+            return "Impossible de récuper les business"
+        case .ticketresponse:
+            return "Impossible a compiler les infos dans ticketresponse"
+        case .emptyTicketIDs:
+            return "Impossible de récupérer des id tickets"
+        case .emptyTicketInfoArray:
+            return "Impossible de récupérer des tickets business"
+        case .emptyBusinessInfoArray:
+            return "Impossible de récupérer des infos business"
+        case .invalidTicketIDs:
+            return "invalidTicketIDs"
+        }
+    }
+    
+}
+
+
 
 enum FirebaseDatabaseError: Error, LocalizedError {
     case jsonEncodingFailed

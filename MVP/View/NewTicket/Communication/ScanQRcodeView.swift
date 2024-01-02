@@ -14,7 +14,7 @@ struct ScanQRcodeView: View {
     @State private var qrOutput : AVCaptureMetadataOutput = .init()
     @State private var cameraPermission: Permission = .Denied
     @StateObject private var qrDelelegate = QRScannerDelegate()
-    @ObservedObject var vm : ViewModel
+    @ObservedObject var vm : NewTicketViewModel
     @State var date = Date()
     
     @State private var errorMessage: String = ""
@@ -34,12 +34,8 @@ struct ScanQRcodeView: View {
                             .padding(.horizontal, 20)
                             .padding(.bottom, 10)
                         , alignment: .topLeading)
-                    .overlay(RegisterButton(title: "Enregistrer", action: {
-                        Task {
-                            let NewTicket = Ticket(date: self.date, urlPDF: URL(string: qrDelelegate.data)!)
-                            try await vm.addTickets(ticket: NewTicket)
-                            dismiss()
-                        }
+                    .overlay(RegisterButton(title: "Valider le PDF", action: {
+                        vm.urlPDFTicket = qrDelelegate.data
                     }, color: Color.bleu_empire).padding(.horizontal, 20)
             .padding(.bottom, 10)
         , alignment: .bottom)
@@ -145,7 +141,7 @@ struct ScanQRcodeView: View {
 }
 
 struct ScanQRcodeView_Previews: PreviewProvider {
-    static let vm = ViewModel()
+    static let vm = NewTicketViewModel()
     static var previews: some View {
         ScanQRcodeView(vm: vm)
     }

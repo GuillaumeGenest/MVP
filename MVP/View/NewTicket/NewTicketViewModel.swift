@@ -1,21 +1,21 @@
 //
-//  ViewModel.swift
+//  NewTicketViewModel.swift
 //  MVP
 //
-//  Created by Guillaume Genest on 18/10/2023.
+//  Created by Guillaume Genest on 21/12/2023.
 //
 
 import Foundation
 import UIKit
 import PDFKit
-import SwiftUI
 
-
-class ViewModel: ObservableObject {
-    @Published var tickets = [Ticket]()
+class NewTicketViewModel: ObservableObject {
     let firebaserepository = FirestoreManager()
     
     let storageManager = StorageManager()
+    
+    
+    @Published var urlPDFTicket: String = ""
     
     
     @Published var StatusMessage: String = ""
@@ -23,20 +23,14 @@ class ViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     
     
+    @Published var ticketReceived: Bool = false
     @Published var isSuccess: Bool = false
-    
-    
-    func fetchData() async {
-        do {
-            tickets = try await firebaserepository.fetchTickets()
-        } catch {
-        }
-    }
+    @Published var inProcess: Bool = false
     
     func addTickets(ticket: Ticket) async throws {
+        
         do {
             try await firebaserepository.addTicket(ticket: ticket)
-            tickets.append(ticket)
             self.isSuccess = true
         }
         catch {
@@ -45,21 +39,15 @@ class ViewModel: ObservableObject {
     }
     
     
-    func deleteTickets(ticket: Ticket) async throws {
+    func getListBusinessName() async throws -> [String: String] {
         do {
-            try await firebaserepository.deleteTicket(ticket: ticket)
-            if let index = self.tickets.firstIndex(of: ticket) {
-                tickets.remove(at: index)
-            }
-        }
-        catch {
+            let listofbusinessName = try await firebaserepository.getBusinessName()
+            return listofbusinessName
+        } catch {
+            // Gérer l'erreur (imprimer ou enregistrer le journal, etc.)
             throw error
         }
     }
-    
-   
-    
-    
     
     @MainActor
     func setError(_ error: Error) async {
@@ -70,10 +58,10 @@ class ViewModel: ObservableObject {
         }
     }
     
+    
 }
 
-
-extension ViewModel {
+extension NewTicketViewModel {
     func regeneratePDFData(from capturedImage: UIImage) throws -> Data {
         let pdfDocument = PDFDocument()
 
@@ -100,10 +88,5 @@ extension ViewModel {
         catch {
             throw error
         }
-    }
-    
-    
-    func SharePdf(url: URL){
-        
     }
 }

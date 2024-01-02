@@ -8,6 +8,29 @@
 import Foundation
 import UIKit
 
+
+
+struct Utils {
+    static let numberFormatter: NumberFormatter = {
+            let formatter = NumberFormatter()
+            formatter.numberStyle = .decimal
+            return formatter
+    }()
+
+    static let dateFormatter: RelativeDateTimeFormatter = {
+        let formatter = RelativeDateTimeFormatter()
+        formatter.unitsStyle = .full
+        return formatter
+    }()
+    static let CurrencyFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        formatter.locale = Locale(identifier: "fr_FR")
+        return formatter
+    }()
+}
+
+
 extension Date {
     
     func FormattedDate(format: String) -> String {
@@ -18,6 +41,14 @@ extension Date {
         
     }
     
+}
+
+
+extension Double {
+    
+    var formattedCurrencyText: String {
+        return Utils.CurrencyFormatter.string(from: NSNumber(value: self)) ?? "0"
+    }
 }
 
 

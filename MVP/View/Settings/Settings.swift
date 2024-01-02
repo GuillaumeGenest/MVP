@@ -13,59 +13,60 @@ struct Settings: View {
     @Binding var showSignInView: Bool
     
     var body: some View {
-        VStack {
-            
-            if let user = viewModel.user {
-                UserInformation(user: user)
-            }
-            if viewModel.authProviders.contains(.email) {
-                EmailSection
-            }else {
-                OtherAuthProvidersSection
-            }
-            ParameterSettingsCell(titre: "Support / Aide" ,value: [ConfigurationArray(NameFile: "Contacter le support", action: {
+        NavigationStack{
+            VStack {
                 
-                
-                let email = "contact@sunnyonroads.com"
-                if let url = URL(string: "mailto:\(email)"),
-                   UIApplication.shared.canOpenURL(url)
-                {
-                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                if let user = viewModel.user {
+                    UserInformation(user: user)
                 }
-            }), ConfigurationArray(NameFile: "Politique de confidentialité", action: {
-                if let appURL = URL(string:"https://sunnyonroads.com") {
-                    UIApplication.shared.open(appURL) { success in
-                        if success {
-                            print("The URL was delivered successfully.")
-                        } else {
-                            print("The URL failed to open.")
+                if viewModel.authProviders.contains(.email) {
+                    EmailSection
+                }else {
+                    OtherAuthProvidersSection
+                }
+                ParameterSettingsCell(titre: "Support / Aide" ,value: [ConfigurationArray(NameFile: "Contacter le support", action: {
+                    
+                    
+                    let email = "contact@sunnyonroads.com"
+                    if let url = URL(string: "mailto:\(email)"),
+                       UIApplication.shared.canOpenURL(url)
+                    {
+                        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                    }
+                }), ConfigurationArray(NameFile: "Politique de confidentialité", action: {
+                    if let appURL = URL(string:"https://sunnyonroads.com") {
+                        UIApplication.shared.open(appURL) { success in
+                            if success {
+                                print("The URL was delivered successfully.")
+                            } else {
+                                print("The URL failed to open.")
+                            }
+                        }
+                    } else {
+                        print("Invalid URL specified.")
+                    }
+                }), ConfigurationArray(NameFile: "Supprimer mon compte", action: {
+                    
+                })]).padding()
+                Spacer()
+                button_log(name: "Deconnection", action: {
+                    Task {
+                        do {
+                            try viewModel.signOut()
+                            showSignInView = true
+                        } catch {
+                            print(error)
                         }
                     }
-            } else {
-                print("Invalid URL specified.")
-            }
-            }), ConfigurationArray(NameFile: "Supprimer mon compte", action: {
-                
-            })]).padding()
-            Spacer()
-            button_log(name: "Deconnection", action: {
-                 Task {
-                     do {
-                         try viewModel.signOut()
-                         showSignInView = true
-                     } catch {
-                         print(error)
-                     }
-                 }
-            }, colorbackground: Color.bleu_empire, colorforeground: Color.white)
+                }, colorbackground: Color.bleu_empire, colorforeground: Color.white)
                 .padding(.horizontal, 8)
                 .padding(.bottom, 20)
-        }.task {
-            try? await viewModel.loadCurrentUser()
+            }.task {
+                try? await viewModel.loadCurrentUser()
+            }
         }
+        
     }
-    
-    
     
     private var EmailSection: some View {
         ParameterSettingsCell(titre: "Mon Compte" ,value: [ConfigurationArray(NameFile: "Modifier mon profil", action: {}), ConfigurationArray(NameFile: "Changement de mot de passe", action: {})])

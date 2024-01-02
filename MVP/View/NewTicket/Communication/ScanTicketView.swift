@@ -11,7 +11,7 @@ import AVFoundation
 
 struct ScanTicketView: View {
     @StateObject var camera = CameraModelView()
-    @ObservedObject var vm: ViewModel
+    @ObservedObject var vm: NewTicketViewModel
 
     @State private var capturedImage: UIImage?
     @State var date = Date()
@@ -32,7 +32,7 @@ struct ScanTicketView: View {
                             Button {
                                 AddTicket()
                             } label: {
-                                Text("Sauvegarder")
+                                Text("Valider le PDF")
                                     .foregroundColor(Color.white)
                                     .fontWeight(.semibold)
                                     .padding(.vertical, 10)
@@ -60,18 +60,20 @@ struct ScanTicketView: View {
     private func AddTicket() {
             Task {
                 do {
-                    vm.isLoading = true
-//                    guard !camera.dataImage.isEmpty else {
-//                        vm.isLoading = false
-//                        vm.StatusMessage = camera.message
-//                        vm.DisplayErrorMessage = true
-//                        return
-//                    }
+//                    vm.isLoading = true
+////                    guard !camera.dataImage.isEmpty else {
+////                        vm.isLoading = false
+////                        vm.StatusMessage = camera.message
+////                        vm.DisplayErrorMessage = true
+////                        return
+////                    }
                     let id = UUID()
                     let regeneratedPDFData = try vm.regeneratePDFData(from: capturedImage!)
                     let url = try await vm.saveDataToPDF(TicketId: id.uuidString, ticketvalue: regeneratedPDFData)
-                    let NewTicket = Ticket(id: id, date: self.date, urlPDF: URL(string: url)!)
-                    try await vm.addTickets(ticket: NewTicket)
+                    
+                    vm.urlPDFTicket = url
+//                    let NewTicket = Ticket(id: id, date: self.date, urlPDF: URL(string: url)!)
+//                    try await vm.addTickets(ticket: NewTicket)
     
                     capturedImage = nil
                     vm.isLoading = false
@@ -86,7 +88,7 @@ struct ScanTicketView: View {
 
 
 struct ScanTicketView_Previews: PreviewProvider {
-    static let vm = ViewModel()
+    static let vm = NewTicketViewModel()
     static var previews: some View {
         ScanTicketView(vm: vm)
     }

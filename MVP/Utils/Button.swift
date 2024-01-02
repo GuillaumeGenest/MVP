@@ -66,7 +66,7 @@ struct CommunicationButtonView: View {
 
 
 
-struct NfcButtonView: View {
+struct PlusButtonView: View {
     let action: () -> Void
     var body: some View {
         Button(action: action, label: {
@@ -74,7 +74,7 @@ struct NfcButtonView: View {
             RoundedRectangle(cornerRadius: 10)
                 .foregroundColor(Color.bleu_empire)
                 .frame(width: 50, height: 50)
-            Image(systemName: "dot.radiowaves.up.forward")
+            Image(systemName: "plus")
                 .foregroundColor(.white)
                 .font(.system(size: 24, weight: .semibold))
         }.shadow(radius: 10)
